@@ -1,6 +1,6 @@
 # Zeus Ray Tracer :zap:
 
-**Zeus** is a ray tracer developed on top of the **lightwave** framework as the final project for the Computer Graphics course during the winter semester of 2023/2024 at Saarland University by Arseny Dremin and Dhimitrios Duka.
+**Zeus** is a ray tracer developed on top of the **lightwave** framework as the final project for the [Computer Graphics course at Saarland University](https://graphics.cg.uni-saarland.de/) during the winter semester of 2023/2024 by Arseny Dremin and Dhimitrios Duka.
 
 ![Final submission](/scene/final.jpeg "Final submission")
 |:--:| 
