@@ -1,0 +1,126 @@
+<scene id="scene">
+  <camera type="perspective">
+    <integer name="width" value="1920"/>
+    <integer name="height" value="1080"/>
+    <float name="fov" value="39.6"/>
+    <string name="fovAxis" value="x"/>
+    <transform>
+      <matrix value="0.686,0.0437,-0.726,7.36,  0.728,-0.0412,0.685,-6.93,  2.08e-08,-0.998,-0.06,1.44,  0,0,0,1"/>
+    </transform>
+  </camera>
+  <instance>
+    <bsdf id="Black" type="principled">
+      <texture name="baseColor" type="constant" value="0.0147,0.0147,0.0147"/>
+      <texture name="roughness" type="constant" value="0.346"/>
+      <texture name="metallic" type="constant" value="1"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <shape type="mesh" filename="meshes/Ring.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf id="Silver" type="principled">
+      <texture name="baseColor" type="constant" value="0.615,0.615,0.615"/>
+      <texture name="roughness" type="constant" value="0.269"/>
+      <texture name="metallic" type="constant" value="1"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <shape type="mesh" filename="meshes/Up.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Silver"/>
+    <shape type="mesh" filename="meshes/Short.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Silver"/>
+    <shape type="mesh" filename="meshes/_m_0_Middle.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Black"/>
+    <shape type="mesh" filename="meshes/_m_1_Middle.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <shape type="mesh" filename="meshes/G up.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <shape type="mesh" filename="meshes/G middle.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <shape type="mesh" filename="meshes/G down.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Silver"/>
+    <shape type="mesh" filename="meshes/Down.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Black"/>
+    <shape type="mesh" filename="meshes/Black up.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <ref id="Black"/>
+    <shape type="mesh" filename="meshes/Grip black big.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <emission type="lambertian">
+      <texture name="emission" type="constant" value="0.0559,3.94,10"/>
+    </emission>
+    <shape type="mesh" filename="meshes/Blade blue.ply"/>
+    <transform>
+      <matrix value="-1.07,1.04,-0.78,1.8,  -0.839,-1.33,-0.609,-0.8,  -0.99,0,1.36,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <light type="area">
+    <instance>
+      <shape type="sphere"/>
+      <transform>
+        <scale value="1e-06"/>
+        <translate x="1.24" y="9.62" z="4.48"/>
+      </transform>
+      <emission type="lambertian">
+        <texture name="emission" type="constant" value="1.52e+13,1.52e+13,1.52e+13"/>
+      </emission>
+    </instance>
+  </light>
+</scene>
+<integrator type="pathtracer" depth="12" nee="true">
+  <ref id="scene"/>
+  <image id="noisy"/>
+  <sampler type="independent" count="1024"/>
+</integrator>
+
+<postprocess type="bloom" kernelSize="30" iterations="5" threshold="1.3" softThreshold="0.3">
+    <ref name="input" id="noisy"/>
+    <image id="bloomed"/>
+</postprocess>

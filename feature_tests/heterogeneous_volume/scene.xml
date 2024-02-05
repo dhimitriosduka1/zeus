@@ -1,0 +1,31 @@
+<integrator type="pathtracer" depth="4">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="1920"/>
+            <integer name="height" value="1080"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="40"/>
+            <transform>
+                <rotate axis="1,0,0" angle="-15"/>
+                <translate z="-4" y="-1.15" x="0."/>
+            </transform>
+        </camera>
+        <light type="envmap">
+            <texture type="constant" value="0.55,0.65,0.75"/>
+        </light>
+        <light type="directional" direction="-1.0,-1.2,0" intensity="15,14,13"/>
+        <instance>
+            <shape type="mesh" filename="../../tests/meshes/cube.ply"/>
+            <volume type="grid" filename="../../tests/volumes/cloud.vol" multiplier="46.5"/>
+            <bsdf type="volume" absorption="0.9725" scatter="0.9" phase="0.1"/>
+            <transform>
+                <scale x="405" y="94" z="403"/>
+                <scale value="0.00325"/>
+                <rotate axis="1,0,0" angle="-10"/>
+                <translate x="0.0" y="0.0" z="-0.1"/>
+            </transform>
+        </instance>
+    </scene>
+    <sampler type="independent" count="1024"/>
+    <image id="cloud"/>
+</integrator>

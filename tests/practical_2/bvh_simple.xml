@@ -1,0 +1,22 @@
+<test type="image" id="bvh_simple">
+    <integrator type="bvh" unit="10">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="400"/>
+                <integer name="height" value="320"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="2"/>
+
+                <transform>
+                    <lookat origin="0,0,-55" target="0,0,0" up="0,-1,0"/>
+                </transform>
+            </camera>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/binning.ply"/>
+            </instance>
+        </scene>
+        <sampler type="independent" count="64"/>
+    </integrator>
+</test>

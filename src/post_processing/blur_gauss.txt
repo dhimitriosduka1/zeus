@@ -1,0 +1,84 @@
+#include <lightwave.hpp>
+
+/*
+    General sceleton of the denoising postprocess
+    <postprocess type="denoising">
+        <ref name="input" id="noisy"/>
+        <ref name="normals" id="normals"/>
+        <ref name="albedo" id="albedo"/>
+        <image id="denoised"/>
+    </postprocess>
+*/
+
+namespace lightwave {  
+    class Bloom : public Postprocess {
+    public:
+        Bloom(const Properties &properties) : Postprocess(properties) {
+            m_kernelSize = properties.get<int>("kernelSize", 5);
+            m_sigma = properties.get<float>("sigma", 2);
+        }
+
+        void execute() override {
+            // Init output image
+            m_output->initialize(m_input->resolution());
+            
+            const Point2i res = m_input->resolution();
+            const int width = res.x();
+            const int height = res.y();
+
+            auto kernel = createKernel(m_kernelSize, m_sigma);
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    for (int i = -m_kernelSize; i <= m_kernelSize; i++) {
+                        for (int j = -m_kernelSize; j <= m_kernelSize; j++) {
+                            int xw = mod((x + i), width);
+                            int yw = mod((y + j), height);
+                            m_output->get(Point2i(x, y)) += m_input->get(Point2i(xw, yw)) * kernel[i + m_kernelSize][j + m_kernelSize];
+                        }
+                    }
+                }
+            }
+            
+            m_output->save();
+        }
+
+        std::string toString() const override {
+            return tfm::format("Bloom post-process");
+        }
+
+    private:
+        int m_kernelSize;
+        float m_sigma;
+
+        std::vector<std::vector<float>> createKernel(int size, float sigma) {
+            const int totalSize = size + size + 1;
+            std::vector<std::vector<float>> kernel (totalSize, std::vector<float>(totalSize));
+            float sum = 0.f;
+            const float sigmaSq2 = sigma * sigma * 2.f;
+            // -2, -1, 0, 1, 2
+            // logger(EInfo, "making kernel");
+
+
+            for (int x = -size; x <= size; x++) {
+                for (int y = -size; y <= size; y++) {
+                    const float value = exp(-(x * x + y * y) / (sigmaSq2)) / (M_PI * sigmaSq2);
+                    kernel[x + size][y + size] = value;
+                    sum += value;
+                }
+            }
+
+            for (int x = 0; x < totalSize; x++) {
+                for (int y = 0; y < totalSize; y++) {
+                    kernel[x][y] /= sum;
+                }
+            }
+
+            logger(EInfo, "done kernel");
+
+
+            return kernel;
+        }
+    };
+}
+REGISTER_POSTPROCESS(Bloom, "bloom")

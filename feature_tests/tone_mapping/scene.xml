@@ -1,0 +1,5 @@
+<postprocess type="tone_mapping">
+    <!-- <string name="useLogScale" value="false" /> -->
+    <image name="input" filename="cathedral.hdr" />
+    <image id="tuned_extendedLogScale"/>
+</postprocess>

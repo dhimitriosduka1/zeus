@@ -1,0 +1,63 @@
+<test type="image" id="image_modes">
+    <integrator type="direct">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="512"/>
+                <integer name="height" value="512"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="24"/>
+
+                <transform>
+                    <lookat origin="0,0,-10" target="0,0,0" up="0,1,0"/>
+                </transform>
+            </camera>
+
+            <light type="envmap">
+                <texture type="constant" value="1"/>
+            </light>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/uvquad.ply"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="image" filename="../textures/hamster.png"
+                        border="clamp" filter="nearest"/>
+                </bsdf>
+                <transform>
+                    <translate x="-1.05" y="-1.05" />
+                </transform>
+            </instance>
+            <instance>
+                <shape type="mesh" filename="../meshes/uvquad.ply"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="image" filename="../textures/hamster.png"
+                        border="clamp" filter="bilinear"/>
+                </bsdf>
+                <transform>
+                    <translate x="+1.05" y="-1.05" />
+                </transform>
+            </instance>
+            <instance>
+                <shape type="mesh" filename="../meshes/uvquad.ply"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="image" filename="../textures/hamster.png"
+                        border="repeat" filter="nearest"/>
+                </bsdf>
+                <transform>
+                    <translate x="-1.05" y="+1.05" />
+                </transform>
+            </instance>
+            <instance>
+                <shape type="mesh" filename="../meshes/uvquad.ply"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="image" filename="../textures/hamster.png"
+                        border="repeat" filter="bilinear"/>
+                </bsdf>
+                <transform>
+                    <translate x="+1.05" y="+1.05" />
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="32"/>
+    </integrator>
+</test>

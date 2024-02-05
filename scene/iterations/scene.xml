@@ -1,0 +1,81 @@
+<integrator type="pathtracer" depth="4">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="512"/>
+            <integer name="height" value="512"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="50"/>
+            <transform>
+                <rotate axis="1,0,0" angle="-2"/>
+                <translate z="-12" y="0." x="0."/>
+            </transform>
+        </camera>
+        <light type="envmap">
+            <texture type="constant" value="0.55,0.65,0.75"/>
+        </light>
+        <light type="directional" direction="0.8,-0.5,2.5" intensity="3.5"/>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.75"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="1"/>
+                <texture name="roughness" type="constant" value="0.75"/>
+            </bsdf>
+            <transform>
+                <scale x="1.1" y="4" z="1.1"/>
+                <translate x="0.0" y="5.6" z="0.0"/>
+                <rotate axis="0,1,0" angle="45"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/person.ply"/>
+            <bsdf type="diffuse">
+                <texture name="albedo" type="constant" value="0.1"/>
+            </bsdf>
+            <transform>
+                <scale value="2.0"/>
+                <rotate axis="0,1,0" angle="-90"/>
+                <translate x="-0.01" y="-3.1" z="-1.0"/>
+            </transform>
+        </instance>
+
+
+        <!-- <instance>
+            <shape type="rectangle"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="1"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="0"/>
+                <texture name="roughness" type="constant" value="0.8"/>
+            </bsdf>
+            <transform>
+                <rotate axis="1,0,0" angle="90"/>
+                <translate y="1"/>
+                <scale value="4"/>
+            </transform>
+        </instance> -->
+    </scene>
+    <sampler type="independent" count="32"/>
+    <image id="noisy2"/>
+</integrator>
+<!-- <integrator type="normals">
+    <ref id="scene"/>
+    <image id="normals"/>
+    <sampler type="independent" count="256"/>
+</integrator>
+
+<integrator type="albedo">
+    <ref id="scene"/>
+    <image id="albedo"/>
+    <sampler type="independent" count="256"/>
+</integrator>
+
+<postprocess type="denoising">
+    <ref name="input" id="noisy"/>
+    <ref name="normals" id="normals"/>
+    <ref name="albedo" id="albedo"/>
+    <image id="denoised"/>
+</postprocess> -->

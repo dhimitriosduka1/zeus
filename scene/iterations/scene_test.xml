@@ -1,0 +1,166 @@
+<integrator type="pathtracer" depth="4">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="512"/>
+            <integer name="height" value="512"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="50"/>
+            <transform>
+                <rotate axis="1,0,0" angle="-13"/>
+                <translate z="-12" y="0." x="0."/>
+            </transform>
+        </camera>
+        <!-- <light type="envmap">
+            <texture type="image" filename="./hdr.png" exposure="1"/>
+            <transform>
+                <rotate axis="0,1,0" angle="90"/>
+                <rotate axis="1,0,0" angle="8"/>
+            </transform>
+        </light> -->
+        <light type="directional" direction="2.2,-1,9.5" intensity="0.3,0.4,0.695"/>
+        <light type="directional" direction="-1.4,-0.9,4" intensity="0.1396, 0.1278, 0.1118"/>
+
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.5"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="1"/>
+                <texture name="roughness" type="constant" value="0.4"/>
+                <!-- <texture name="roughness" type="image" filename="./roughness.png" linear="true" exposure="1"/> -->
+
+            </bsdf>
+            <!-- <texture name="normal" type="image" filename="./Concrete_Muddy_001_Normal.jpg" linear="true" exposure="1"/> -->
+            <!-- <emission type="lambertian">
+                 <texture name="emission" type="constant" value="2"/>
+            </emission> -->
+            <transform>
+                <scale x="1.1" y="4" z="1.1"/>
+                <translate x="0.0" y="8.0" z="0.0"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="10.5, 9, 7.5"/>
+            </emission>
+            <transform>
+                <scale x="0.1" y="4" z="0.045"/>
+                <translate x="0.0" y="8.01" z="0.0"/>
+                <translate x="1.01" y="0" z="-.36"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="10.5, 9, 7.5"/>
+            </emission>
+            <transform>
+                <scale x="1.1" y="0.1" z="0.045"/>
+                <translate x="0.0" y="4.0899" z="-.36"/>
+                <translate x="0" y="0" z="0"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./b.ply"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.2"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="0.9"/>
+                <texture name="roughness" type="constant" value="0.55"/>
+            </bsdf>
+            <transform>
+                <scale value="2.0"/>
+                <rotate axis="0,1,0" angle="180"/>
+                <rotate axis="1,0,0" angle="-5"/>
+                <translate x="0.2" y="4.04" z="-0.55"/>
+            </transform>
+        </instance>
+<!-- 
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false" id="cloudmesh"/>
+            <volume type="grid" filename="./cloud.vol" multiplier="35.5" id="cloudvolume"/>
+            <bsdf type="volume" absorption="4.0" light="1.0" phase="0.0" id="cloudshader"/>
+            <transform>
+                <scale x="-405" y="94" z="403"/>
+                <scale value="0.032"/>
+                <rotate axis="1,0,0" angle="170.0"/>
+                <rotate axis="0,1,0" angle="5.0"/>
+                <translate x="0.0" y="7.5" z="4.5"/>
+            </transform>
+        </instance> -->
+
+        <!-- <instance>
+            <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+            <transform>
+                <scale x="405" y="94" z="403"/>
+                <scale value="0.04"/>
+                <rotate axis="1,0,0" angle="180.0"/>
+                <rotate axis="0,1,0" angle="-20.0"/>
+                <translate x="-8.0" y="8.25" z="20.0"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+            <transform>
+                <scale x="-405" y="94" z="403"/>
+                <scale value="0.04"/>
+                <rotate axis="1,0,0" angle="180.0"/>
+                <rotate axis="0,1,0" angle="25.0"/>
+                <translate x="7.0" y="8.25" z="21.0"/>
+            </transform>
+        </instance> -->
+
+        <!-- <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <volume type="fade" value="0.0012"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="0.4,0.55,1.1"/>
+            </emission>
+            <transform>
+                <scale x="210" y="13" z="700"/>
+                <translate x="0.0" y="7.5" z="400.0"/>
+            </transform>
+        </instance> -->
+        
+    </scene>
+    <sampler type="independent" count="64"/>
+    <image id="noisya"/>
+</integrator>
+<!-- <integrator type="normals">
+    <ref id="scene"/>
+    <image id="normals"/>
+    <sampler type="independent" count="32"/>
+</integrator>
+
+<integrator type="albedo">
+    <ref id="scene"/>
+    <image id="albedo"/>
+    <sampler type="independent" count="32"/>
+</integrator>
+
+<postprocess type="denoising">
+    <ref name="input" id="noisy"/>
+    <ref name="normals" id="normals"/>
+    <ref name="albedo" id="albedo"/>
+    <image id="denoised"/>
+</postprocess> -->
+<!-- <postprocess type="bloom" kernelSize="17" iterations="6" threshold="10.3" softThreshold="0.3" amount="0.004">
+    <ref name="input" id="noisy"/>
+    <image id="bloomed"/>
+</postprocess> -->

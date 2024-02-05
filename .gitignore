@@ -1,0 +1,10 @@
+__pycache__
+
+/build*
+/.vscode
+
+/.vs
+/out
+/scenes
+
+.DS_Store

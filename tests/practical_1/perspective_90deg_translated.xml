@@ -1,0 +1,18 @@
+<test type="image" id="perspective_90deg_translated">
+    <integrator type="camera">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="400"/>
+                <integer name="height" value="300"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="90"/>
+
+                <transform>
+                    <translate x="0.5" y="0.1" z="-0.2"/>
+                </transform>
+            </camera>
+        </scene>
+        <sampler type="independent" count="16"/>
+    </integrator>
+</test>

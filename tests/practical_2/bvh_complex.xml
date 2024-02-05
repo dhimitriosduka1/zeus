@@ -1,0 +1,22 @@
+<test type="image" id="bvh_complex" mae="1e+6" me="1e-2">
+    <integrator type="bvh" unit="1000">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="350"/>
+                <integer name="height" value="300"/>
+
+                <string name="fovAxis" value="y"/>
+                <float name="fov" value="22"/>
+
+                <transform>
+                    <lookat origin="50,-100,0" target="0,0,0" up="0,0,-1"/>
+                </transform>
+            </camera>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/sibenik.ply"/>
+            </instance>
+        </scene>
+        <sampler type="independent" count="8"/>
+    </integrator>
+</test>

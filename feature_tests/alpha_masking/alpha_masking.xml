@@ -1,0 +1,33 @@
+<scene id="scene">
+  <camera type="perspective">
+    <integer name="width" value="1920"/>
+    <integer name="height" value="1080"/>
+    <float name="fov" value="39.598"/>
+    <string name="fovAxis" value="x"/>
+    <transform>
+      <matrix value="0.68592,0.32401,-0.65156,7.3589,  0.72768,-0.30542,0.61417,-6.9258,  -4.0113e-09,-0.8954,-0.44527,4.9583,  0,0,0,1"/>
+    </transform>
+  </camera>
+  <light type="envmap">
+    <texture type="image" filename="../../tests/textures/kloofendal_overcast_1k.hdr" exposure="1" filter="bilinear"/>
+    <transform>
+      <rotate axis="0,1,0" angle="200"/>
+      <rotate axis="1,0,0" angle="20"/>
+    </transform>
+  </light>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="./leaf.png" filter="bilinear" />
+      <texture name="roughness" type="constant" value="0.5"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="alpha" type="image" filename="./alpha.png" linear="true" filter="bilinear" />
+    <shape type="sphere" />
+  </instance>
+</scene>
+<integrator type="pathtracer" depth="12" nee="true" mis="true">
+  <ref id="scene"/>
+  <image id="alpha_masking"/>
+  <sampler type="independent" count="32"/>
+</integrator>

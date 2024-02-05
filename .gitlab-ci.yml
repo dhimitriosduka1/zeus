@@ -1,0 +1,20 @@
+build:
+  stage: build
+  image: ghcr.io/rikorose/gcc-cmake:gcc-13
+  script:
+    - mkdir build && cd build
+    - cmake ..
+    - cmake --build . --parallel
+  timeout: 60s
+
+test:
+  stage: test
+  image: ghcr.io/rikorose/gcc-cmake:gcc-13
+  coverage: '/Test coverage: \d+.\d+%/'
+  variables:
+    GIT_CLEAN_FLAGS: -ffdx -e build/
+  script:
+    - ./run_tests.py --disable-build || true
+  timeout: 120s
+  artifacts:
+    when: always

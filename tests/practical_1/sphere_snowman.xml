@@ -1,0 +1,67 @@
+<test type="image" id="sphere_snowman">
+    <integrator type="normals">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="512"/>
+                <integer name="height" value="512"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="40"/>
+
+                <transform>
+                    <lookat origin="2,0,-3" target="0,0,0" up="0,1,0"/>
+                </transform>
+            </camera>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.5"/>
+                    <translate y="0.6"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.4"/>
+                    <translate y="0"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.3"/>
+                    <translate y="-0.5"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.02"/>
+                    <scale z="10"/>
+                    <translate z="-0.3" y="-0.4"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.03"/>
+                    <translate x="-0.1" z="-0.28" y="-0.5"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <transform>
+                    <scale value="0.03"/>
+                    <translate x="0.1" z="-0.28" y="-0.5"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="16"/>
+    </integrator>
+</test>

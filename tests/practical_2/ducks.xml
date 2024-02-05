@@ -1,0 +1,221 @@
+<!-- you may guess who created this test file -->
+<test type="image" id="ducks">
+    <integrator type="direct">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <!-- cinematic aspect ratio, since this scene is so dramatic -->
+                <integer name="width" value="840"/>
+                <integer name="height" value="360"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="42"/>
+
+                <transform>
+                    <rotate axis="1,0,0" angle="-1"/>
+                    <translate z="-8"/>
+                </transform>
+            </camera>
+
+            <light type="envmap">
+                <texture type="constant" value="1.5"/>
+            </light>
+
+            <bsdf type="diffuse" id="wall material">
+                <texture name="albedo" type="constant" value="0.9"/>
+            </bsdf>
+
+            <instance id="motherduck">
+                <shape id="duck" type="mesh" filename="../meshes/rubber_duck_toy_1k.ply"/>
+                <bsdf id="duckskin" type="diffuse">
+                    <texture name="albedo" type="image" filename="../textures/rubber_duck_toy_diff_1k.jpg"/>
+                </bsdf>
+                <transform>
+                    <scale value="6"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+
+            <!-- row 1 -->
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="3" y="1" z="4"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="2" y="1" z="4"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="4" y="1" z="4"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-3" y="1" z="4"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-2" y="1" z="4"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-4" y="1" z="4"/>
+                </transform>
+            </instance>
+
+            <!-- row 2 -->
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="3" y="1" z="6"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="2" y="1" z="6"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="4" y="1" z="6"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-3" y="1" z="6"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-2" y="1" z="6"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-4" y="1" z="6"/>
+                </transform>
+            </instance>
+
+            <!-- row 3 -->
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="3" y="1" z="8"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="2" y="1" z="8"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="4" y="1" z="8"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-3" y="1" z="8"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-2" y="1" z="8"/>
+                </transform>
+            </instance>
+            <instance>
+                <ref id="duck"/>
+                <ref id="duckskin"/>
+                <transform>
+                    <scale value="3"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="-4" y="1" z="8"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="rectangle"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="constant" value="1"/>
+                </bsdf>
+                <transform>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <scale value="10"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="64"/>
+    </integrator>
+</test>

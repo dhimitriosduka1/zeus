@@ -1,0 +1,32 @@
+<integrator type="direct" variable="normals">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="512"/>
+            <integer name="height" value="512"/>
+
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="40"/>
+
+            <transform>
+                <translate x="-0.03" y="0.1" z="-4"/>
+            </transform>
+        </camera>
+
+        <light type="point" position="-0.7,-1.1,-0.8" power="100"/>
+
+        <instance id="back">
+            <shape type="rectangle"/>
+            <bsdf type="diffuse">
+                <texture name="albedo" type="constant" value="0.9"/>
+            </bsdf>
+            <!-- <texture name="normal" type="image" filename="normals.png" linear="true"/> -->
+            <transform>
+                <rotate axis="0,1,0" angle="180"/>
+                <rotate axis="0,0,1" angle="120"/>
+                <rotate axis="1,0,0" angle="-20"/>
+            </transform>
+        </instance>
+    </scene>
+    <sampler type="independent" count="1024"/>
+    <image id="normalmap"/>
+</integrator>

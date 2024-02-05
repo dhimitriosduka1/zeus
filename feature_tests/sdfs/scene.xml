@@ -1,0 +1,25 @@
+<integrator type="normals">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="1024"/>
+            <integer name="height" value="1024"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="50"/>
+            <transform>
+                <rotate axis="1,0,0" angle="0"/>
+                <translate z="-5" y="0" x="0."/>
+            </transform>
+        </camera>
+
+        <instance>
+            <shape type="sdf" shape="box" round="0.5"/>
+            <transform>
+                <scale value="1"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="45"/>
+            </transform>
+        </instance>
+    </scene>
+    <sampler type="independent" count="128"/>
+    <image id="sdfs"/>
+</integrator>

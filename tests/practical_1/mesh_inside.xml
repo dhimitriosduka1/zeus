@@ -1,0 +1,20 @@
+<test type="image" id="mesh_inside">
+    <integrator type="normals">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="512"/>
+                <integer name="height" value="512"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="27"/>
+
+                <transform />
+            </camera>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/icosphere.ply" smooth="false"/>
+            </instance>
+        </scene>
+        <sampler type="independent" count="16"/>
+    </integrator>
+</test>

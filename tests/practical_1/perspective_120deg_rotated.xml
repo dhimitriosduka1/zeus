@@ -1,0 +1,19 @@
+<test type="image" id="perspective_120deg_rotated">
+    <integrator type="camera">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="600"/>
+                <integer name="height" value="400"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="120"/>
+
+                <transform>
+                    <rotate axis="0,0,1" angle="30"/>
+                    <rotate axis="1,0,0" angle="20"/>
+                </transform>
+            </camera>
+        </scene>
+        <sampler type="independent" count="16"/>
+    </integrator>
+</test>

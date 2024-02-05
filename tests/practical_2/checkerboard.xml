@@ -1,0 +1,40 @@
+<test type="image" id="checkerboard" mae="3e-2">
+    <integrator type="direct">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="512"/>
+                <integer name="height" value="512"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="40"/>
+
+                <transform>
+                    <lookat origin="0,-4,-5" target="0,0,0" up="0,1,0"/>
+                </transform>
+            </camera>
+
+            <light type="envmap">
+                <texture type="constant" value="1"/>
+            </light>
+
+            <instance>
+                <shape type="sphere"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="checkerboard" scale="16,8" color0="0.08,0.25,0.70" color1="0.9" />
+                </bsdf>
+            </instance>
+            <instance>
+                <shape type="rectangle"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="checkerboard" scale="32" color0="0.1" color1="0.9"/>
+                </bsdf>
+                <transform>
+                    <scale value="10"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="64"/>
+    </integrator>
+</test>

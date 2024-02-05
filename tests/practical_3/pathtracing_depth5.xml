@@ -1,0 +1,94 @@
+<test type="image" id="pathtracing_depth5">
+    <integrator type="pathtracer" depth="5">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="400"/>
+                <integer name="height" value="400"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="40"/>
+
+                <transform>
+                    <translate z="-4"/>
+                </transform>
+            </camera>
+
+            <bsdf type="diffuse" id="wall material">
+                <texture name="albedo" type="constant" value="0.9"/>
+            </bsdf>
+
+            <instance id="back">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <scale z="-1"/>
+                    <translate z="1"/>
+                </transform>
+            </instance>
+
+            <instance id="floor">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+
+            <instance id="ceiling">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <rotate axis="1,0,0" angle="-90"/>
+                    <translate y="-1"/>
+                </transform>
+            </instance>
+
+            <instance id="left wall">
+                <shape type="rectangle"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="constant" value="0.9,0,0"/>
+                </bsdf>
+                <transform>
+                    <rotate axis="0,1,0" angle="90"/>
+                    <translate x="-1"/>
+                </transform>
+            </instance>
+
+            <instance id="right wall">
+                <shape type="rectangle"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="constant" value="0,0.9,0"/>
+                </bsdf>
+                <transform>
+                    <rotate axis="0,1,0" angle="-90"/>
+                    <translate x="1"/>
+                </transform>
+            </instance>
+
+            <instance id="lamp">
+                <shape type="rectangle"/>
+                <emission type="lambertian">
+                    <texture name="emission" type="constant" value="2"/>
+                </emission>
+                <transform>
+                    <scale value="0.9"/>
+                    <rotate axis="1,0,0" angle="-90"/>
+                    <translate y="-0.98"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="constant" value="0.9"/>
+                </bsdf>
+                <transform>
+                    <scale value="0.5"/>
+                    <translate y="0.5" z="-0.1"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="256"/>
+    </integrator>
+</test>

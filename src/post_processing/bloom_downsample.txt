@@ -1,0 +1,136 @@
+#include <lightwave.hpp>
+
+/*
+    General sceleton of the denoising postprocess
+    <postprocess type="denoising">
+        <ref name="input" id="noisy"/>
+        <ref name="normals" id="normals"/>
+        <ref name="albedo" id="albedo"/>
+        <image id="denoised"/>
+    </postprocess>
+*/
+
+namespace lightwave {  
+    class Bloom : public Postprocess {
+    public:
+        Bloom(const Properties &properties) : Postprocess(properties) {
+            m_kernelSize = properties.get<int>("kernelSize", 5);
+            m_sigma = properties.get<float>("sigma", 2);
+        }
+
+        void execute() override {
+            // Init output image
+            // m_output->initialize(m_input->resolution());
+            
+            const Point2i res = m_input->resolution();
+            const int width = res.x();
+            const int height = res.y();
+            const int iterations = 5;
+
+            std::vector<Image> images;
+
+            Image original;
+            original.copy(*m_input);
+            images.push_back(original);
+            for (int i = 0; i < iterations; i++) {
+                auto down = downsample(images[i]);
+                images.push_back(down);
+            }
+
+            // 0 1 2 3
+
+            for (int i = 0; i < iterations - 1; i++) {
+                upsample(images[iterations - i - 1], images[iterations - i - 2]);
+            }
+
+            m_output->copy(images[0]);
+            m_output->save();
+        }
+
+        std::string toString() const override {
+            return tfm::format("Bloom post-process");
+        }
+
+    private:
+        int m_kernelSize;
+        float m_sigma;
+
+        Image downsample(const Image &image) {
+            const Point2i res = image.resolution();
+            auto result = Image(Point2i(res.x() / 2, res.y() / 2));
+            for (int x = 0; x < res.x() / 2; x++) {
+                for (int y = 0; y < res.y() / 2; y++) {
+                    int xc = clampInt(x * 2 + 1, 0, res.x() - 1);
+                    int yc = clampInt(y * 2 + 1, 0, res.y() - 1);
+
+                    result.get(Point2i(x, y)) = 0.25f * (image.get(Point2i(xc, yc)) + image.get(Point2i(xc - 1, yc)) +
+                                            image.get(Point2i(xc, yc - 1)) + image.get(Point2i(xc - 1, yc - 1)));
+                }
+            }
+
+            return result;
+        }
+
+        void upsample(const Image &source, Image& destination) {
+            const Point2i res = destination.resolution();
+            const int halfX = res.x() / 2;
+            const int halfY = res.y() / 2;
+            for (int x = 0; x < res.x(); x++) {
+                for (int y = 0; y < res.y(); y++) {
+                    const int xr = clampInt((x + 1) / 2, 0, halfX);
+                    const int xl = clampInt((x - 1) / 2, 0, halfX);
+                    const int yd = clampInt((y + 1) / 2, 0, halfY);
+                    const int yu = clampInt((y - 1) / 2, 0, halfY);
+
+
+
+                    // ab
+                    // cd
+                    Color a = source.get(Point2i(xl, yu));
+                    Color b = source.get(Point2i(xr, yu));
+                    Color c = source.get(Point2i(xl, yd));
+                    Color d = source.get(Point2i(xr, yd));
+
+                    float dx = (x - xl * 2) * 0.25f + 0.25f + 0.25f / 2.f;
+                    float dy = (y - yu * 2) * 0.25f + 0.25f + 0.25f / 2.f;
+
+                    Color ab = a * (1.f - dx) + b * dx;
+                    Color cd = c * (1.f - dx) + d * dx;
+                    Color v = ab * (1.f - dy) + cd * dy;
+
+                    destination.get(Point2i(x, y)) = v;
+                }
+            }
+        }
+
+        std::vector<std::vector<float>> createKernel(int size, float sigma) {
+            const int totalSize = size + size + 1;
+            std::vector<std::vector<float>> kernel (totalSize, std::vector<float>(totalSize));
+            float sum = 0.f;
+            const float sigmaSq2 = sigma * sigma * 2.f;
+            // -2, -1, 0, 1, 2
+            // logger(EInfo, "making kernel");
+
+
+            for (int x = -size; x <= size; x++) {
+                for (int y = -size; y <= size; y++) {
+                    const float value = exp(-(x * x + y * y) / (sigmaSq2)) / (M_PI * sigmaSq2);
+                    kernel[x + size][y + size] = value;
+                    sum += value;
+                }
+            }
+
+            for (int x = 0; x < totalSize; x++) {
+                for (int y = 0; y < totalSize; y++) {
+                    kernel[x][y] /= sum;
+                }
+            }
+
+            logger(EInfo, "done kernel");
+
+
+            return kernel;
+        }
+    };
+}
+REGISTER_POSTPROCESS(Bloom, "bloom")

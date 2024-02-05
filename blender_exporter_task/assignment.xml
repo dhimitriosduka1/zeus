@@ -1,0 +1,62 @@
+<scene id="scene">
+  <camera type="perspective">
+    <integer name="width" value="1920"/>
+    <integer name="height" value="1080"/>
+    <float name="fov" value="39.6"/>
+    <string name="fovAxis" value="x"/>
+    <transform>
+      <matrix value="0.686,0.324,-0.652,7.36,  0.728,-0.305,0.614,-6.93,  -4.01e-09,-0.895,-0.445,4.96,  0,0,0,1"/>
+    </transform>
+  </camera>
+  <light type="point" position="0.266,4.82,5.9" power="2.53e+03,2.53e+03,2.53e+03"/>
+  <light type="point" position="7.54,1.01,5.9" power="2.53e+03,2.53e+03,2.53e+03"/>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="constant" value="0.8"/>
+      <texture name="roughness" type="constant" value="0.5"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <shape type="mesh" filename="meshes/Plane.ply"/>
+    <transform>
+      <matrix value="15.5,0,0,0,  0,20,0,0,  0,0,1,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="textures/brass_vase_02_diff_1k.jpg"/>
+      <texture name="roughness" type="image" filename="textures/brass_vase_02_rough.png.exr" linear="true"/>
+      <texture name="metallic" type="image" filename="textures/brass_vase_02_metal.png.exr" linear="true"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="normal" type="image" filename="textures/brass_vase_02_nor_gl.png.exr" linear="true"/>
+    <shape type="mesh" filename="meshes/brass_vase_02_blockout.ply"/>
+    <transform>
+      <matrix value="-2.41,3.19,0,1.27,  -3.19,-2.41,0,-0.71,  0,0,4,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="textures/brass_vase_03_diff_1k.jpg"/>
+      <texture name="roughness" type="image" filename="textures/brass_vase_03_rough.png.exr" linear="true"/>
+      <texture name="metallic" type="image" filename="textures/brass_vase_03_metal.png.exr" linear="true"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="normal" type="image" filename="textures/brass_vase_03_nor_gl.png.exr" linear="true"/>
+    <shape type="mesh" filename="meshes/brass_vase_03.ply"/>
+    <transform>
+      <matrix value="7,0,0,1.1,  0,7,0,-1.31,  0,0,7,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <light type="envmap">
+    <texture type="constant" value="0.0509,0.0509,0.0509"/>
+    <transform>
+      <matrix value="1,0,0,0,  0,0,1,0,  0,-1,0,0,  0,0,0,1"/>
+    </transform>
+  </light>
+</scene>
+<integrator type="pathtracer" depth="3" nee="true" mis="true">
+  <ref id="scene"/>
+  <image id="assignment"/>
+  <sampler type="independent" count="2048"/>
+</integrator>

@@ -1,0 +1,3544 @@
+<integrator type="pathtracer" depth="4">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="512"/>
+            <integer name="height" value="512"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="50"/>
+            <transform>
+                <rotate axis="1,0,0" angle="-13"/>
+                <translate z="-12" y="0." x="0."/>
+            </transform>
+        </camera>
+        <light type="envmap">
+            <texture type="image" filename="./hdr.png" exposure="1"/>
+            <transform>
+                <rotate axis="0,1,0" angle="235"/>
+                <!-- <rotate axis="0,1,0" angle="90"/> -->
+                <rotate axis="1,0,0" angle="8"/>
+            </transform>
+        </light>
+        <light type="directional" direction="1.4,-1,9.5" intensity="0.3,0.4,0.695"/>
+        <!-- <light type="directional" direction="-1.4,-0.9,3" intensity="0.1396, 0.1278, 0.1118"/>
+         -->
+        <!-- <light type="directional" direction="-1.4,-0.9,-3" intensity="0.05, 0.04, 0.065"/> -->
+
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.5"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="1"/>
+                <!-- <texture name="roughness" type="constant" value="0.4"/> -->
+                <texture name="roughness" type="image" filename="./roughness.png" linear="true" exposure="1"/>
+
+            </bsdf>
+            <!-- <texture name="normal" type="image" filename="./Concrete_Muddy_001_Normal.jpg" linear="true" exposure="1"/> -->
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="5.1, 4, 2.5"/>
+            </emission>
+            <transform>
+                <scale x="1.1" y="4" z="1.1"/>
+                <translate x="0.0" y="8.0" z="0.0"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance>
+
+        <!-- <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="10.5, 9, 7.5"/>
+            </emission>
+            <transform>
+                <scale x="0.1" y="4" z="0.045"/>
+                <translate x="0.0" y="8.01" z="0.0"/>
+                <translate x="1.01" y="0" z="-.36"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="10.5, 9, 7.5"/>
+            </emission>
+            <transform>
+                <scale x="1.1" y="0.1" z="0.045"/>
+                <translate x="0.0" y="4.0899" z="-.36"/>
+                <translate x="0" y="0" z="0"/>
+                <rotate axis="0,1,0" angle="45"/>
+                <rotate axis="1,0,0" angle="-12"/>
+            </transform>
+        </instance> -->
+
+        <instance>
+            <shape type="mesh" filename="./b.ply"/>
+            <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.2"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="0.9"/>
+                <texture name="roughness" type="constant" value="0.55"/>
+            </bsdf>
+            <transform>
+                <scale value="2.0"/>
+                <rotate axis="0,1,0" angle="180"/>
+                <rotate axis="1,0,0" angle="-5"/>
+                <translate x="0.2" y="4.04" z="-0.55"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false" id="cloudmesh"/>
+            <volume type="grid" filename="./cloud.vol" multiplier="35.5" id="cloudvolume"/>
+            <bsdf type="volume" absorption="4.0" light="1.0" phase="0.0" id="cloudshader"/>
+            <transform>
+                <scale x="-405" y="94" z="403"/>
+                <scale value="0.032"/>
+                <rotate axis="1,0,0" angle="170.0"/>
+                <rotate axis="0,1,0" angle="5.0"/>
+                <translate x="0.0" y="7.5" z="4.5"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+            <transform>
+                <scale x="405" y="94" z="403"/>
+                <scale value="0.04"/>
+                <rotate axis="1,0,0" angle="180.0"/>
+                <rotate axis="0,1,0" angle="-20.0"/>
+                <translate x="-8.0" y="8.25" z="20.0"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+            <transform>
+                <scale x="-405" y="94" z="403"/>
+                <scale value="0.04"/>
+                <rotate axis="1,0,0" angle="180.0"/>
+                <rotate axis="0,1,0" angle="25.0"/>
+                <translate x="7.0" y="8.25" z="21.0"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <volume type="fade" value="0.0014"/>
+            <emission type="lambertian">
+                 <texture name="emission" type="constant" value="0.4,0.55,1.1"/>
+            </emission>
+            <transform>
+                <scale x="290" y="18" z="700"/>
+                <translate x="0.0" y="7.5" z="400.0"/>
+            </transform>
+        </instance>
+
+        <instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05128581968903994"/>
+                    <rotate axis="1,0,0" angle="171.60930905268455"/>
+                    <rotate axis="0,1,0" angle="234.62702428047456"/>
+                    <translate x="22.41318693740977" y="11.888514551271479" z="30.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.0595411754964105"/>
+                    <rotate axis="1,0,0" angle="183.1067706735208"/>
+                    <rotate axis="0,1,0" angle="306.44917598730984"/>
+                    <translate x="-0.11775875167377237" y="11.864438033812789" z="30.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03609913634078777"/>
+                    <rotate axis="1,0,0" angle="184.79082818021413"/>
+                    <rotate axis="0,1,0" angle="113.02383429355807"/>
+                    <translate x="2.18580965823692" y="9.602019783219243" z="30.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04566209009421108"/>
+                    <rotate axis="1,0,0" angle="173.02170819146926"/>
+                    <rotate axis="0,1,0" angle="284.67863655250596"/>
+                    <translate x="-28.373547544082495" y="10.049411098240707" z="30.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04650370737137343"/>
+                    <rotate axis="1,0,0" angle="180.6376507447002"/>
+                    <rotate axis="0,1,0" angle="323.7071745593656"/>
+                    <translate x="-14.43890577317151" y="10.122456792650459" z="30.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05252221403496306"/>
+                    <rotate axis="1,0,0" angle="170.10702500158243"/>
+                    <rotate axis="0,1,0" angle="332.6110863498004"/>
+                    <translate x="-13.204162705821847" y="10.347947836422929" z="57.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03515341719401131"/>
+                    <rotate axis="1,0,0" angle="188.52791265918694"/>
+                    <rotate axis="0,1,0" angle="110.5606466690237"/>
+                    <translate x="-37.717558758044724" y="10.93420317704714" z="57.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03500146294520451"/>
+                    <rotate axis="1,0,0" angle="174.98877054943736"/>
+                    <rotate axis="0,1,0" angle="310.9773231604996"/>
+                    <translate x="36.87199830723627" y="10.861749806246161" z="57.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03776895238151931"/>
+                    <rotate axis="1,0,0" angle="175.16390160941563"/>
+                    <rotate axis="0,1,0" angle="270.4264542562923"/>
+                    <translate x="35.88829140994923" y="11.088435493522763" z="57.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.041752946867984024"/>
+                    <rotate axis="1,0,0" angle="184.4267722717128"/>
+                    <rotate axis="0,1,0" angle="249.9620040864295"/>
+                    <translate x="-15.308061427596535" y="12.135280374908655" z="57.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04408391514974057"/>
+                    <rotate axis="1,0,0" angle="179.21855954951903"/>
+                    <rotate axis="0,1,0" angle="352.9111506998029"/>
+                    <translate x="20.509967326278712" y="11.617606460823529" z="84.28571428571428"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04393751090315231"/>
+                    <rotate axis="1,0,0" angle="177.70312732903832"/>
+                    <rotate axis="0,1,0" angle="10.898041490473268"/>
+                    <translate x="23.011455755058748" y="10.95049386411572" z="84.28571428571428"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05741477830959414"/>
+                    <rotate axis="1,0,0" angle="178.4976854353027"/>
+                    <rotate axis="0,1,0" angle="271.4220247487203"/>
+                    <translate x="25.72324264757283" y="10.562510981900218" z="84.28571428571428"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.041066369660627475"/>
+                    <rotate axis="1,0,0" angle="183.0901221976522"/>
+                    <rotate axis="0,1,0" angle="33.03912684527982"/>
+                    <translate x="8.370286799676805" y="11.653795354444496" z="84.28571428571428"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05862712415261599"/>
+                    <rotate axis="1,0,0" angle="170.34429650803133"/>
+                    <rotate axis="0,1,0" angle="21.680596277369304"/>
+                    <translate x="22.416483752101186" y="10.491383380966806" z="84.28571428571428"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.050135594683361"/>
+                    <rotate axis="1,0,0" angle="177.02984742863848"/>
+                    <rotate axis="0,1,0" angle="81.97021862898575"/>
+                    <translate x="30.538569035782288" y="10.352614068335464" z="111.42857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.0382961074452179"/>
+                    <rotate axis="1,0,0" angle="170.09796588083765"/>
+                    <rotate axis="0,1,0" angle="38.66998766995839"/>
+                    <translate x="-48.27365256231966" y="10.521394686967918" z="111.42857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03968671136465146"/>
+                    <rotate axis="1,0,0" angle="181.88714930391697"/>
+                    <rotate axis="0,1,0" angle="30.40651874174863"/>
+                    <translate x="-27.36090908612772" y="12.73341651743625" z="111.42857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.036303509915480495"/>
+                    <rotate axis="1,0,0" angle="173.89557194196874"/>
+                    <rotate axis="0,1,0" angle="65.63377400551748"/>
+                    <translate x="-60.174878002451926" y="10.265939883572504" z="111.42857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.036448514013533787"/>
+                    <rotate axis="1,0,0" angle="170.5571795422414"/>
+                    <rotate axis="0,1,0" angle="79.8021955785124"/>
+                    <translate x="-58.49528045805274" y="11.684595466133946" z="111.42857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.03602879639141571"/>
+                    <rotate axis="1,0,0" angle="178.22367100660273"/>
+                    <rotate axis="0,1,0" angle="240.04209021765152"/>
+                    <translate x="-52.380371790837614" y="11.574301661993335" z="138.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04689988955959928"/>
+                    <rotate axis="1,0,0" angle="183.2346568467706"/>
+                    <rotate axis="0,1,0" angle="41.310587850701204"/>
+                    <translate x="50.94856618360839" y="11.660718328514214" z="138.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04107858898725491"/>
+                    <rotate axis="1,0,0" angle="170.9088735810456"/>
+                    <rotate axis="0,1,0" angle="198.37432092922467"/>
+                    <translate x="66.12958663065726" y="11.221263513338616" z="138.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.040583995694975526"/>
+                    <rotate axis="1,0,0" angle="181.08592530000476"/>
+                    <rotate axis="0,1,0" angle="21.09818750705761"/>
+                    <translate x="74.15076270400067" y="11.896347805961863" z="138.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04142602609832953"/>
+                    <rotate axis="1,0,0" angle="178.28116766679832"/>
+                    <rotate axis="0,1,0" angle="115.19775969365742"/>
+                    <translate x="-28.955721014852763" y="12.715668145926834" z="138.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04248322334224455"/>
+                    <rotate axis="1,0,0" angle="186.7883690505934"/>
+                    <rotate axis="0,1,0" angle="47.634559651206445"/>
+                    <translate x="-0.322055852757245" y="11.7231689368661" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04828570029643902"/>
+                    <rotate axis="1,0,0" angle="183.74675118036822"/>
+                    <rotate axis="0,1,0" angle="356.74366509083603"/>
+                    <translate x="9.393009106816393" y="12.071562606872805" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03775817159572324"/>
+                    <rotate axis="1,0,0" angle="173.73653448800974"/>
+                    <rotate axis="0,1,0" angle="203.53262948652375"/>
+                    <translate x="53.78208489071446" y="10.937009732394255" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05136713019360656"/>
+                    <rotate axis="1,0,0" angle="172.11122548301472"/>
+                    <rotate axis="0,1,0" angle="248.07580380017524"/>
+                    <translate x="70.99267676804826" y="11.652703135035749" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05100610375974622"/>
+                    <rotate axis="1,0,0" angle="181.28569129950313"/>
+                    <rotate axis="0,1,0" angle="281.3347956960537"/>
+                    <translate x="86.95554293907347" y="12.318679505828323" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05364788540029425"/>
+                    <rotate axis="1,0,0" angle="177.9794899099215"/>
+                    <rotate axis="0,1,0" angle="289.6816377377284"/>
+                    <translate x="59.5386014601672" y="11.141447700453314" z="165.71428571428572"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05968778809905192"/>
+                    <rotate axis="1,0,0" angle="176.59490867399492"/>
+                    <rotate axis="0,1,0" angle="51.14069616182029"/>
+                    <translate x="-66.10304389561085" y="11.067940367937647" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05785617255733795"/>
+                    <rotate axis="1,0,0" angle="170.45931609189668"/>
+                    <rotate axis="0,1,0" angle="306.2106787863889"/>
+                    <translate x="56.21184232695448" y="13.125376320301491" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04108495125160692"/>
+                    <rotate axis="1,0,0" angle="176.94871102219875"/>
+                    <rotate axis="0,1,0" angle="12.76965558144417"/>
+                    <translate x="-56.150933545074395" y="11.442142364826585" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04487658714490597"/>
+                    <rotate axis="1,0,0" angle="185.4215686288349"/>
+                    <rotate axis="0,1,0" angle="245.33713537088283"/>
+                    <translate x="87.96673898616045" y="11.902373102947994" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.048640748329464085"/>
+                    <rotate axis="1,0,0" angle="178.26501614234164"/>
+                    <rotate axis="0,1,0" angle="7.224817572882478"/>
+                    <translate x="-75.82214131209192" y="11.61431726954398" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.040061870587770346"/>
+                    <rotate axis="1,0,0" angle="183.8901756820553"/>
+                    <rotate axis="0,1,0" angle="295.07152185830256"/>
+                    <translate x="-89.25747529061832" y="11.477987104445168" z="192.85714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04878409362239599"/>
+                    <rotate axis="1,0,0" angle="182.11221028616802"/>
+                    <rotate axis="0,1,0" angle="71.28742938125798"/>
+                    <translate x="13.037548919868996" y="12.84421756561694" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.045781245344817804"/>
+                    <rotate axis="1,0,0" angle="179.92520561011037"/>
+                    <rotate axis="0,1,0" angle="110.04343117412122"/>
+                    <translate x="90.09723559644213" y="12.176740781236273" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04732952519291436"/>
+                    <rotate axis="1,0,0" angle="187.0685724080536"/>
+                    <rotate axis="0,1,0" angle="242.198908440105"/>
+                    <translate x="-37.187885394496945" y="13.20646083272036" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05908346974334429"/>
+                    <rotate axis="1,0,0" angle="189.34338738683522"/>
+                    <rotate axis="0,1,0" angle="297.6222216712874"/>
+                    <translate x="20.589253181753335" y="11.842521053183471" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03789346104202872"/>
+                    <rotate axis="1,0,0" angle="175.63790742052538"/>
+                    <rotate axis="0,1,0" angle="260.30239142998494"/>
+                    <translate x="-77.91261613066797" y="12.589962742319877" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.044935551740898326"/>
+                    <rotate axis="1,0,0" angle="174.16640936278685"/>
+                    <rotate axis="0,1,0" angle="144.05886688955542"/>
+                    <translate x="15.961140448111166" y="13.236218130483628" z="220.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04166670537510068"/>
+                    <rotate axis="1,0,0" angle="177.8231676062649"/>
+                    <rotate axis="0,1,0" angle="279.90896442393677"/>
+                    <translate x="115.75625295650617" y="11.940118059510123" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03650024023023389"/>
+                    <rotate axis="1,0,0" angle="173.40962297817026"/>
+                    <rotate axis="0,1,0" angle="118.41715007900949"/>
+                    <translate x="-99.12588506478377" y="13.754927360196191" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03998143657406821"/>
+                    <rotate axis="1,0,0" angle="182.10118262778374"/>
+                    <rotate axis="0,1,0" angle="159.2789060243849"/>
+                    <translate x="111.61308939285409" y="13.070854729413814" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03958706222277293"/>
+                    <rotate axis="1,0,0" angle="175.3413188663115"/>
+                    <rotate axis="0,1,0" angle="70.11062692507865"/>
+                    <translate x="-8.74175174068381" y="13.704282022926966" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04076376982544907"/>
+                    <rotate axis="1,0,0" angle="186.94605143644964"/>
+                    <rotate axis="0,1,0" angle="103.91283351157378"/>
+                    <translate x="52.58123285683358" y="12.774897891296096" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03945600351006749"/>
+                    <rotate axis="1,0,0" angle="175.80281882102543"/>
+                    <rotate axis="0,1,0" angle="89.37410680571165"/>
+                    <translate x="-15.989764400975119" y="11.911875026911925" z="247.14285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04706077407249746"/>
+                    <rotate axis="1,0,0" angle="181.04429197057138"/>
+                    <rotate axis="0,1,0" angle="226.16071009231308"/>
+                    <translate x="-19.412950838793293" y="13.270384172806803" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04076893086912909"/>
+                    <rotate axis="1,0,0" angle="187.7631493082599"/>
+                    <rotate axis="0,1,0" angle="280.4390859117195"/>
+                    <translate x="47.13774101293046" y="12.446127866905044" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.046055932267286964"/>
+                    <rotate axis="1,0,0" angle="179.02600154379365"/>
+                    <rotate axis="0,1,0" angle="132.8719380036198"/>
+                    <translate x="-70.62115632081495" y="13.431557747180335" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03832546795496072"/>
+                    <rotate axis="1,0,0" angle="172.67808362212838"/>
+                    <rotate axis="0,1,0" angle="281.6520662441799"/>
+                    <translate x="-129.19803767674858" y="12.710308321329672" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03665099608389677"/>
+                    <rotate axis="1,0,0" angle="183.1302750681778"/>
+                    <rotate axis="0,1,0" angle="68.67419550961048"/>
+                    <translate x="2.1093367184589056" y="12.683958112956061" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.035482426889914764"/>
+                    <rotate axis="1,0,0" angle="184.71612989352596"/>
+                    <rotate axis="0,1,0" angle="0.5727295710479252"/>
+                    <translate x="115.72725841598717" y="13.021904165746065" z="274.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05282586095847967"/>
+                    <rotate axis="1,0,0" angle="185.28828756049222"/>
+                    <rotate axis="0,1,0" angle="163.22097321653447"/>
+                    <translate x="29.36751051376524" y="13.508598774194578" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04322514542809518"/>
+                    <rotate axis="1,0,0" angle="182.98124298450622"/>
+                    <rotate axis="0,1,0" angle="302.4751818441923"/>
+                    <translate x="-69.70125203554213" y="12.811051921828135" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03907115058639657"/>
+                    <rotate axis="1,0,0" angle="175.6134162363268"/>
+                    <rotate axis="0,1,0" angle="93.89014362165668"/>
+                    <translate x="-92.41069458098995" y="13.939719868352693" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03547957443909393"/>
+                    <rotate axis="1,0,0" angle="174.91206267708066"/>
+                    <rotate axis="0,1,0" angle="138.08905493379785"/>
+                    <translate x="-24.613103224155765" y="13.298119375499686" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05344532362020652"/>
+                    <rotate axis="1,0,0" angle="173.70376576539363"/>
+                    <rotate axis="0,1,0" angle="113.9727258026699"/>
+                    <translate x="24.559818820585775" y="12.105114904934824" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.057629874911428944"/>
+                    <rotate axis="1,0,0" angle="178.72498318516577"/>
+                    <rotate axis="0,1,0" angle="209.7954692777744"/>
+                    <translate x="37.67101340900217" y="13.274206488750899" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04362401399767164"/>
+                    <rotate axis="1,0,0" angle="185.70752621386143"/>
+                    <rotate axis="0,1,0" angle="220.2679818876171"/>
+                    <translate x="100.65323539899069" y="13.560316995420557" z="301.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05477890613246694"/>
+                    <rotate axis="1,0,0" angle="186.48243230678656"/>
+                    <rotate axis="0,1,0" angle="7.744187666047155"/>
+                    <translate x="-90.20914332852101" y="13.607720022010419" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03701463306168509"/>
+                    <rotate axis="1,0,0" angle="181.6520794195702"/>
+                    <rotate axis="0,1,0" angle="251.3002959745826"/>
+                    <translate x="20.992703690771577" y="12.64583590110952" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.0562768495817091"/>
+                    <rotate axis="1,0,0" angle="187.0823428006796"/>
+                    <rotate axis="0,1,0" angle="175.15028338802756"/>
+                    <translate x="71.03858856758657" y="12.430883052817892" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04026257690195171"/>
+                    <rotate axis="1,0,0" angle="172.25518978290623"/>
+                    <rotate axis="0,1,0" angle="157.27291638286948"/>
+                    <translate x="-152.09919380477007" y="12.908670186518242" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04339482129421751"/>
+                    <rotate axis="1,0,0" angle="171.18418858814965"/>
+                    <rotate axis="0,1,0" angle="166.3509798258559"/>
+                    <translate x="154.16116508861694" y="14.410987146908116" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.0501141742485549"/>
+                    <rotate axis="1,0,0" angle="186.8457609265003"/>
+                    <rotate axis="0,1,0" angle="258.472228039999"/>
+                    <translate x="7.02629970327402" y="14.657649716372461" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05374473678529548"/>
+                    <rotate axis="1,0,0" angle="175.6070666685148"/>
+                    <rotate axis="0,1,0" angle="354.43826471485954"/>
+                    <translate x="28.64468416413777" y="12.789939748287505" z="328.57142857142856"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04436627245797237"/>
+                    <rotate axis="1,0,0" angle="182.46593430364484"/>
+                    <rotate axis="0,1,0" angle="285.5659167812195"/>
+                    <translate x="83.11862700406272" y="14.913482258899492" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04789892168228243"/>
+                    <rotate axis="1,0,0" angle="182.86015301237688"/>
+                    <rotate axis="0,1,0" angle="280.43316841607157"/>
+                    <translate x="13.168920190711162" y="14.094895262268803" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05201890747613451"/>
+                    <rotate axis="1,0,0" angle="175.50986418902895"/>
+                    <rotate axis="0,1,0" angle="137.59598147191542"/>
+                    <translate x="131.88821782958317" y="14.371790141834225" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.044083564240286005"/>
+                    <rotate axis="1,0,0" angle="180.73698084074363"/>
+                    <rotate axis="0,1,0" angle="241.2141123821612"/>
+                    <translate x="130.03355370228584" y="14.39658070677936" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05359362940621878"/>
+                    <rotate axis="1,0,0" angle="183.96935151891168"/>
+                    <rotate axis="0,1,0" angle="283.5380820032314"/>
+                    <translate x="-37.73063374255557" y="13.225697053153871" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04390861643359947"/>
+                    <rotate axis="1,0,0" angle="173.42905790416737"/>
+                    <rotate axis="0,1,0" angle="324.66083423696966"/>
+                    <translate x="165.6172328898679" y="13.983632336374084" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05260894249457504"/>
+                    <rotate axis="1,0,0" angle="183.6517280748783"/>
+                    <rotate axis="0,1,0" angle="235.57884278314248"/>
+                    <translate x="-143.91941649494674" y="12.707934234630267" z="355.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.036656166472181353"/>
+                    <rotate axis="1,0,0" angle="175.3202563409466"/>
+                    <rotate axis="0,1,0" angle="12.01091667983778"/>
+                    <translate x="-56.85086370563029" y="14.940465104483673" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05312691838041811"/>
+                    <rotate axis="1,0,0" angle="184.43781365605153"/>
+                    <rotate axis="0,1,0" angle="270.8030090071499"/>
+                    <translate x="-136.82544443408995" y="13.5171358493368" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05578313204595983"/>
+                    <rotate axis="1,0,0" angle="183.8582319460607"/>
+                    <rotate axis="0,1,0" angle="34.68247149444728"/>
+                    <translate x="152.82466927501085" y="13.251942677775356" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05504251960336043"/>
+                    <rotate axis="1,0,0" angle="180.03138533955035"/>
+                    <rotate axis="0,1,0" angle="204.30639713830328"/>
+                    <translate x="130.76024395591318" y="13.012060452402267" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.040699703767553226"/>
+                    <rotate axis="1,0,0" angle="186.4066923037758"/>
+                    <rotate axis="0,1,0" angle="263.1484518305163"/>
+                    <translate x="-128.12505326620416" y="12.801636954424906" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.054763879515412034"/>
+                    <rotate axis="1,0,0" angle="188.93145930769768"/>
+                    <rotate axis="0,1,0" angle="55.02903928496056"/>
+                    <translate x="178.01177486046376" y="14.499304323601798" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.039665572163448064"/>
+                    <rotate axis="1,0,0" angle="181.26568765420893"/>
+                    <rotate axis="0,1,0" angle="206.95982511710955"/>
+                    <translate x="66.70602470134119" y="14.921802350832097" z="382.85714285714283"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05002008184244592"/>
+                    <rotate axis="1,0,0" angle="175.59820904436248"/>
+                    <rotate axis="0,1,0" angle="281.90009438474254"/>
+                    <translate x="-77.29716209110939" y="14.634021336160496" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05717237585442979"/>
+                    <rotate axis="1,0,0" angle="182.86546836312903"/>
+                    <rotate axis="0,1,0" angle="173.09778565601144"/>
+                    <translate x="177.19918995174336" y="13.620218821406723" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05264026933553691"/>
+                    <rotate axis="1,0,0" angle="180.44820638737633"/>
+                    <rotate axis="0,1,0" angle="335.48379037618247"/>
+                    <translate x="-155.1051839092294" y="14.520243375566286" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05843054380844971"/>
+                    <rotate axis="1,0,0" angle="183.3628755896453"/>
+                    <rotate axis="0,1,0" angle="108.1558698925164"/>
+                    <translate x="0.33011930179443993" y="13.18335179697859" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05462969388373554"/>
+                    <rotate axis="1,0,0" angle="172.09401171250235"/>
+                    <rotate axis="0,1,0" angle="93.0559626023913"/>
+                    <translate x="93.57629077591938" y="14.427574689055097" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.03579814787967667"/>
+                    <rotate axis="1,0,0" angle="175.52076633990336"/>
+                    <rotate axis="0,1,0" angle="49.546441719567646"/>
+                    <translate x="174.86868573316244" y="14.19390395024457" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05460757756854621"/>
+                    <rotate axis="1,0,0" angle="180.98906346752415"/>
+                    <rotate axis="0,1,0" angle="337.0746415896174"/>
+                    <translate x="104.28543135084757" y="14.561192807409128" z="410.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04680682370791784"/>
+                    <rotate axis="1,0,0" angle="186.8689139810045"/>
+                    <rotate axis="0,1,0" angle="195.10746173701367"/>
+                    <translate x="-114.84406114328836" y="14.221565550611137" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.046981299239173865"/>
+                    <rotate axis="1,0,0" angle="185.14613613114352"/>
+                    <rotate axis="0,1,0" angle="185.75162151539087"/>
+                    <translate x="-196.82282341975395" y="15.383973976782318" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.051350041326115356"/>
+                    <rotate axis="1,0,0" angle="180.41390653190854"/>
+                    <rotate axis="0,1,0" angle="216.07741540312264"/>
+                    <translate x="-200.88963231721038" y="13.274970502598897" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.040867054674918434"/>
+                    <rotate axis="1,0,0" angle="170.45405183429497"/>
+                    <rotate axis="0,1,0" angle="192.18329869760962"/>
+                    <translate x="-35.71292821771786" y="13.548843756666269" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.051043698456985045"/>
+                    <rotate axis="1,0,0" angle="180.38995620582338"/>
+                    <rotate axis="0,1,0" angle="170.24307635709638"/>
+                    <translate x="-30.716338751660686" y="15.732405677299841" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.045857663563460646"/>
+                    <rotate axis="1,0,0" angle="177.80270045562472"/>
+                    <rotate axis="0,1,0" angle="10.25166226508658"/>
+                    <translate x="146.8039866611124" y="13.981760440555878" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04392486420651419"/>
+                    <rotate axis="1,0,0" angle="180.9625570298798"/>
+                    <rotate axis="0,1,0" angle="227.01355956648084"/>
+                    <translate x="141.10702463665172" y="15.432456885676109" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04430043317354053"/>
+                    <rotate axis="1,0,0" angle="180.90446073655488"/>
+                    <rotate axis="0,1,0" angle="88.65994889995609"/>
+                    <translate x="-153.51228912090718" y="15.314685498694315" z="437.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04179338571359657"/>
+                    <rotate axis="1,0,0" angle="176.11595913352213"/>
+                    <rotate axis="0,1,0" angle="323.003285165713"/>
+                    <translate x="95.31678958250214" y="14.825712578017086" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.0517143301608358"/>
+                    <rotate axis="1,0,0" angle="185.87740366276472"/>
+                    <rotate axis="0,1,0" angle="168.53554545292457"/>
+                    <translate x="-156.36333084404149" y="14.388000397523287" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03882313780877218"/>
+                    <rotate axis="1,0,0" angle="182.32675679881805"/>
+                    <rotate axis="0,1,0" angle="272.3464987974666"/>
+                    <translate x="-104.52844365987943" y="15.680180712270607" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03664729161322187"/>
+                    <rotate axis="1,0,0" angle="176.27239870737827"/>
+                    <rotate axis="0,1,0" angle="80.41326865216298"/>
+                    <translate x="-128.23259352499636" y="15.311804910938985" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04546208926046054"/>
+                    <rotate axis="1,0,0" angle="173.78955963428623"/>
+                    <rotate axis="0,1,0" angle="151.59696349807317"/>
+                    <translate x="156.60556119711802" y="15.155129907411936" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03998228404471865"/>
+                    <rotate axis="1,0,0" angle="172.29640942361087"/>
+                    <rotate axis="0,1,0" angle="79.0073911404021"/>
+                    <translate x="110.32410778510521" y="14.929284533635219" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04530509627380385"/>
+                    <rotate axis="1,0,0" angle="175.3413333299714"/>
+                    <rotate axis="0,1,0" angle="40.443552130406076"/>
+                    <translate x="-25.15239818245442" y="14.61639749794191" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.03561632623232483"/>
+                    <rotate axis="1,0,0" angle="180.89031214566526"/>
+                    <rotate axis="0,1,0" angle="278.0535055465766"/>
+                    <translate x="-169.53344694980683" y="14.829300277994651" z="464.2857142857143"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05954661667219548"/>
+                    <rotate axis="1,0,0" angle="184.4699601905631"/>
+                    <rotate axis="0,1,0" angle="351.2566073880308"/>
+                    <translate x="-120.02374599768345" y="15.040851231902472" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04508812568050765"/>
+                    <rotate axis="1,0,0" angle="185.67537712250513"/>
+                    <rotate axis="0,1,0" angle="301.56106131625774"/>
+                    <translate x="207.16148967597434" y="14.138210513107344" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04074380770708023"/>
+                    <rotate axis="1,0,0" angle="187.86667454725938"/>
+                    <rotate axis="0,1,0" angle="39.15327037543631"/>
+                    <translate x="-82.87831232552134" y="15.63345317973771" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04665157447492548"/>
+                    <rotate axis="1,0,0" angle="172.58952341894476"/>
+                    <rotate axis="0,1,0" angle="212.64464356379335"/>
+                    <translate x="136.75094931841443" y="14.701356295404997" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.039900333388821256"/>
+                    <rotate axis="1,0,0" angle="176.02880780843182"/>
+                    <rotate axis="0,1,0" angle="310.91247965316046"/>
+                    <translate x="91.82516396245751" y="14.18271794290846" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05567858342911927"/>
+                    <rotate axis="1,0,0" angle="185.6168213473769"/>
+                    <rotate axis="0,1,0" angle="94.42209368572246"/>
+                    <translate x="-108.86976656594382" y="15.148735116676749" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05831654462151105"/>
+                    <rotate axis="1,0,0" angle="185.77994944076133"/>
+                    <rotate axis="0,1,0" angle="235.9290140602531"/>
+                    <translate x="57.463656263429925" y="15.524126983537045" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04152071039178352"/>
+                    <rotate axis="1,0,0" angle="171.8417745191867"/>
+                    <rotate axis="0,1,0" angle="286.6828513977736"/>
+                    <translate x="176.21932717782232" y="14.803272937807536" z="491.42857142857144"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.045492286916396625"/>
+                    <rotate axis="1,0,0" angle="180.87811476109152"/>
+                    <rotate axis="0,1,0" angle="178.96334274868065"/>
+                    <translate x="30.08184421052212" y="16.04630507719896" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.038523114886778204"/>
+                    <rotate axis="1,0,0" angle="175.17868505793044"/>
+                    <rotate axis="0,1,0" angle="34.242312392177155"/>
+                    <translate x="128.10273166214753" y="14.49246928002252" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05582201395924778"/>
+                    <rotate axis="1,0,0" angle="173.4318113129622"/>
+                    <rotate axis="0,1,0" angle="23.11588179056296"/>
+                    <translate x="-175.49267577928305" y="16.46459249872981" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.0390635976245934"/>
+                    <rotate axis="1,0,0" angle="179.77396332330406"/>
+                    <rotate axis="0,1,0" angle="42.621376774821265"/>
+                    <translate x="7.56550931147126" y="14.63952353546958" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05097007955866789"/>
+                    <rotate axis="1,0,0" angle="177.7605536015082"/>
+                    <rotate axis="0,1,0" angle="92.94088240809224"/>
+                    <translate x="178.28151557018626" y="15.920194832741112" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.035414420506682254"/>
+                    <rotate axis="1,0,0" angle="189.57085028287608"/>
+                    <rotate axis="0,1,0" angle="222.0551926002811"/>
+                    <translate x="116.73122928130587" y="14.124274287393554" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03672092619151576"/>
+                    <rotate axis="1,0,0" angle="179.73599892162053"/>
+                    <rotate axis="0,1,0" angle="257.2281204392312"/>
+                    <translate x="83.32141935330148" y="14.057400918968852" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.049564816624946675"/>
+                    <rotate axis="1,0,0" angle="173.0366419448243"/>
+                    <rotate axis="0,1,0" angle="90.84228172725908"/>
+                    <translate x="118.45283518872847" y="15.575898378369807" z="518.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03844974655529063"/>
+                    <rotate axis="1,0,0" angle="181.7896417890183"/>
+                    <rotate axis="0,1,0" angle="207.59253082097072"/>
+                    <translate x="-136.87038261664432" y="16.60942867661251" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04277098810753829"/>
+                    <rotate axis="1,0,0" angle="183.6047456247227"/>
+                    <rotate axis="0,1,0" angle="246.63118967351355"/>
+                    <translate x="-119.2355073472601" y="14.513728005911913" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04552492063353605"/>
+                    <rotate axis="1,0,0" angle="182.2969576412405"/>
+                    <rotate axis="0,1,0" angle="235.32086892167092"/>
+                    <translate x="243.5205929561199" y="16.225675483874614" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.041672962924069405"/>
+                    <rotate axis="1,0,0" angle="186.8168904833193"/>
+                    <rotate axis="0,1,0" angle="206.7730801053493"/>
+                    <translate x="-218.985233962118" y="14.845020924789953" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04118878243621098"/>
+                    <rotate axis="1,0,0" angle="175.61739554545775"/>
+                    <rotate axis="0,1,0" angle="153.33372152284332"/>
+                    <translate x="205.77714699527786" y="16.59517238403641" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.041106626736416144"/>
+                    <rotate axis="1,0,0" angle="170.58719727224397"/>
+                    <rotate axis="0,1,0" angle="342.8363506837823"/>
+                    <translate x="-161.3354965945599" y="14.561320309020248" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05418202698113581"/>
+                    <rotate axis="1,0,0" angle="188.5064878822398"/>
+                    <rotate axis="0,1,0" angle="195.33027868368063"/>
+                    <translate x="98.70164325838567" y="14.708944812661432" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05427483303438467"/>
+                    <rotate axis="1,0,0" angle="185.34153818487945"/>
+                    <rotate axis="0,1,0" angle="247.46274103694913"/>
+                    <translate x="69.00744927790072" y="16.141547829197556" z="545.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04152019838661274"/>
+                    <rotate axis="1,0,0" angle="189.79482673059331"/>
+                    <rotate axis="0,1,0" angle="99.31786311785436"/>
+                    <translate x="-179.51402298554268" y="16.808650955228032" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.044245449156804936"/>
+                    <rotate axis="1,0,0" angle="184.87639926485596"/>
+                    <rotate axis="0,1,0" angle="117.79473374094164"/>
+                    <translate x="196.99881035346277" y="14.581646135985107" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04555190113975577"/>
+                    <rotate axis="1,0,0" angle="174.05866376884603"/>
+                    <rotate axis="0,1,0" angle="201.55499377487288"/>
+                    <translate x="230.70112803267904" y="15.750498017883686" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04419387648505752"/>
+                    <rotate axis="1,0,0" angle="186.23882405920602"/>
+                    <rotate axis="0,1,0" angle="12.707657779348143"/>
+                    <translate x="12.587235275970215" y="14.991581072733817" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05000113217713408"/>
+                    <rotate axis="1,0,0" angle="178.21019865322575"/>
+                    <rotate axis="0,1,0" angle="198.45603011548607"/>
+                    <translate x="247.15545539797205" y="16.676744975712992" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.044196522986096824"/>
+                    <rotate axis="1,0,0" angle="186.03799136414463"/>
+                    <rotate axis="0,1,0" angle="178.87138510926616"/>
+                    <translate x="59.12924560154909" y="15.087900334675098" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.0522399952805993"/>
+                    <rotate axis="1,0,0" angle="180.8109376532551"/>
+                    <rotate axis="0,1,0" angle="19.528635762830696"/>
+                    <translate x="-155.7167178467326" y="16.05278695341938" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04313318399094744"/>
+                    <rotate axis="1,0,0" angle="178.61871119097492"/>
+                    <rotate axis="0,1,0" angle="128.9004534801771"/>
+                    <translate x="-139.21198664268638" y="14.549132767060895" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04164742172714482"/>
+                    <rotate axis="1,0,0" angle="174.62393726378096"/>
+                    <rotate axis="0,1,0" angle="22.08770936896666"/>
+                    <translate x="-170.39756009033715" y="16.02800939617001" z="572.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.058162116225404445"/>
+                    <rotate axis="1,0,0" angle="189.4975528469663"/>
+                    <rotate axis="0,1,0" angle="227.34815779490722"/>
+                    <translate x="33.15616863084813" y="16.85149295460033" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.045767238087908155"/>
+                    <rotate axis="1,0,0" angle="184.5807837800739"/>
+                    <rotate axis="0,1,0" angle="218.29661589081402"/>
+                    <translate x="186.82250508530558" y="15.511126916557084" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04222532606693794"/>
+                    <rotate axis="1,0,0" angle="184.9649524088234"/>
+                    <rotate axis="0,1,0" angle="19.517421381353653"/>
+                    <translate x="264.1442597865414" y="16.196375777070507" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.038641240033567295"/>
+                    <rotate axis="1,0,0" angle="184.8375666837929"/>
+                    <rotate axis="0,1,0" angle="224.72902027782325"/>
+                    <translate x="17.67145242080005" y="15.112480221108285" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.041512740146539384"/>
+                    <rotate axis="1,0,0" angle="172.0466058031461"/>
+                    <rotate axis="0,1,0" angle="54.16487706163552"/>
+                    <translate x="-64.20696217577296" y="17.072889027594474" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03790961690002487"/>
+                    <rotate axis="1,0,0" angle="189.53348290993242"/>
+                    <rotate axis="0,1,0" angle="333.91146473168413"/>
+                    <translate x="-242.21056543774145" y="16.664575882317042" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03829855214426938"/>
+                    <rotate axis="1,0,0" angle="174.56334362379732"/>
+                    <rotate axis="0,1,0" angle="78.90512484958185"/>
+                    <translate x="-142.43089820980487" y="16.922950996467485" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03820878843419315"/>
+                    <rotate axis="1,0,0" angle="185.0065683842222"/>
+                    <rotate axis="0,1,0" angle="198.64367764020494"/>
+                    <translate x="129.95867857379739" y="15.687182818220547" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04963897323908587"/>
+                    <rotate axis="1,0,0" angle="187.7360698824553"/>
+                    <rotate axis="0,1,0" angle="334.5510138263704"/>
+                    <translate x="212.73312949882632" y="16.090253087587453" z="600.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04131801924608957"/>
+                    <rotate axis="1,0,0" angle="184.49464816894317"/>
+                    <rotate axis="0,1,0" angle="75.33014365857541"/>
+                    <translate x="183.91323072950786" y="17.31331945150495" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05091310123756544"/>
+                    <rotate axis="1,0,0" angle="184.7087349093591"/>
+                    <rotate axis="0,1,0" angle="279.1270880485202"/>
+                    <translate x="-76.25823648008705" y="15.916152793461146" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.041882445437736955"/>
+                    <rotate axis="1,0,0" angle="173.81003632078654"/>
+                    <rotate axis="0,1,0" angle="100.49437561472793"/>
+                    <translate x="-97.49422022042097" y="16.989062723742627" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05637423566674388"/>
+                    <rotate axis="1,0,0" angle="183.8064765086908"/>
+                    <rotate axis="0,1,0" angle="199.52048035666044"/>
+                    <translate x="-20.903522809185347" y="16.43022328438325" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03523254816844947"/>
+                    <rotate axis="1,0,0" angle="184.5453972044975"/>
+                    <rotate axis="0,1,0" angle="248.84673561624152"/>
+                    <translate x="272.4568875855112" y="17.302338005256914" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.051395171489991065"/>
+                    <rotate axis="1,0,0" angle="180.8990056253256"/>
+                    <rotate axis="0,1,0" angle="166.67919333921458"/>
+                    <translate x="51.534151590994895" y="17.306070234745263" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04348966997215883"/>
+                    <rotate axis="1,0,0" angle="171.94211821940547"/>
+                    <rotate axis="0,1,0" angle="335.40293504841253"/>
+                    <translate x="-213.62127780324573" y="15.872212849089063" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03701189701019767"/>
+                    <rotate axis="1,0,0" angle="183.36550752169708"/>
+                    <rotate axis="0,1,0" angle="56.71646629886418"/>
+                    <translate x="92.16773488645288" y="16.602694623246737" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.051687182619350645"/>
+                    <rotate axis="1,0,0" angle="175.89117922028015"/>
+                    <rotate axis="0,1,0" angle="188.37488922183812"/>
+                    <translate x="51.280677259369156" y="17.33031040514992" z="627.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04449822216220604"/>
+                    <rotate axis="1,0,0" angle="178.951782452169"/>
+                    <rotate axis="0,1,0" angle="101.40720552948702"/>
+                    <translate x="33.07088859502642" y="17.58412939667466" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03507115535369053"/>
+                    <rotate axis="1,0,0" angle="170.88907223159708"/>
+                    <rotate axis="0,1,0" angle="121.7594639886211"/>
+                    <translate x="-106.79841950551176" y="16.532724109199727" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.03923263326534243"/>
+                    <rotate axis="1,0,0" angle="175.06340555611376"/>
+                    <rotate axis="0,1,0" angle="127.75871082868451"/>
+                    <translate x="-246.54075011403927" y="17.736927201732875" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05584061464276985"/>
+                    <rotate axis="1,0,0" angle="180.83720202821277"/>
+                    <rotate axis="0,1,0" angle="66.18827720917153"/>
+                    <translate x="-95.3364562012751" y="16.040139795550843" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.056739709430393234"/>
+                    <rotate axis="1,0,0" angle="176.3440095923648"/>
+                    <rotate axis="0,1,0" angle="186.80845254665115"/>
+                    <translate x="-118.81020536920886" y="16.094124679683922" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.055325881589365966"/>
+                    <rotate axis="1,0,0" angle="181.45595750268117"/>
+                    <rotate axis="0,1,0" angle="295.109888831455"/>
+                    <translate x="214.7318498929762" y="17.694830240551198" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05995238994350718"/>
+                    <rotate axis="1,0,0" angle="173.22954228377998"/>
+                    <rotate axis="0,1,0" angle="173.71148277735054"/>
+                    <translate x="150.09551784243087" y="15.361665007992313" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04764147014136957"/>
+                    <rotate axis="1,0,0" angle="170.0716352591116"/>
+                    <rotate axis="0,1,0" angle="257.6134074912297"/>
+                    <translate x="-68.60374374247391" y="16.67541493436915" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.054472372058508856"/>
+                    <rotate axis="1,0,0" angle="179.28299807333863"/>
+                    <rotate axis="0,1,0" angle="133.71669654499246"/>
+                    <translate x="-21.010493066016124" y="16.638304704710727" z="654.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04271146509968986"/>
+                    <rotate axis="1,0,0" angle="170.29810225388488"/>
+                    <rotate axis="0,1,0" angle="48.102357289802725"/>
+                    <translate x="-298.9576471544393" y="17.588625460402742" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.046168131806330615"/>
+                    <rotate axis="1,0,0" angle="170.23213214982889"/>
+                    <rotate axis="0,1,0" angle="262.90915461571893"/>
+                    <translate x="234.16684539684837" y="17.113802055620155" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05550785476081996"/>
+                    <rotate axis="1,0,0" angle="183.8774689692005"/>
+                    <rotate axis="0,1,0" angle="352.2476085371542"/>
+                    <translate x="4.7757149604322535" y="15.948334254414553" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.059049270745331506"/>
+                    <rotate axis="1,0,0" angle="177.54371635922033"/>
+                    <rotate axis="0,1,0" angle="39.52155423923438"/>
+                    <translate x="249.63745638565564" y="17.68799812052677" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.0550425066952871"/>
+                    <rotate axis="1,0,0" angle="171.3561123660221"/>
+                    <rotate axis="0,1,0" angle="158.6648466059231"/>
+                    <translate x="-83.00907580552416" y="17.09836398821442" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05936578014415703"/>
+                    <rotate axis="1,0,0" angle="175.0970214680416"/>
+                    <rotate axis="0,1,0" angle="277.1453577441941"/>
+                    <translate x="285.46579772711647" y="16.88007464869788" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04968043400009185"/>
+                    <rotate axis="1,0,0" angle="172.53161545537847"/>
+                    <rotate axis="0,1,0" angle="290.75275701289416"/>
+                    <translate x="62.360203407366214" y="16.312275894084458" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05274804307662724"/>
+                    <rotate axis="1,0,0" angle="174.16157059559364"/>
+                    <rotate axis="0,1,0" angle="76.82881048577904"/>
+                    <translate x="154.42392976322355" y="17.779853942454746" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.040359186123020634"/>
+                    <rotate axis="1,0,0" angle="174.47175339616567"/>
+                    <rotate axis="0,1,0" angle="177.28340297959883"/>
+                    <translate x="101.2694061856156" y="16.323928367823015" z="681.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04526507888649261"/>
+                    <rotate axis="1,0,0" angle="183.8381309001014"/>
+                    <rotate axis="0,1,0" angle="90.04772859567287"/>
+                    <translate x="126.49197901338374" y="17.302731427847178" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.058241951287322256"/>
+                    <rotate axis="1,0,0" angle="177.0775717533821"/>
+                    <rotate axis="0,1,0" angle="277.8110548318228"/>
+                    <translate x="119.8155231898541" y="16.22192559304817" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.059873507821976944"/>
+                    <rotate axis="1,0,0" angle="178.17121738393865"/>
+                    <rotate axis="0,1,0" angle="55.205146892699155"/>
+                    <translate x="56.48709568078186" y="17.871382971334974" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.047247266762199196"/>
+                    <rotate axis="1,0,0" angle="178.41372541494704"/>
+                    <rotate axis="0,1,0" angle="171.2076628768904"/>
+                    <translate x="-308.49660569163035" y="17.179066831528168" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04360607962311441"/>
+                    <rotate axis="1,0,0" angle="173.97185574428707"/>
+                    <rotate axis="0,1,0" angle="338.29689216992347"/>
+                    <translate x="-291.0420497123427" y="16.449307903494805" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04586875908509616"/>
+                    <rotate axis="1,0,0" angle="170.98160970018202"/>
+                    <rotate axis="0,1,0" angle="242.21553540555902"/>
+                    <translate x="-88.34732078585898" y="17.171811147911555" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.051930764369143526"/>
+                    <rotate axis="1,0,0" angle="170.0938869406632"/>
+                    <rotate axis="0,1,0" angle="111.94162944920066"/>
+                    <translate x="70.89267099467838" y="16.830725233592084" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03533863747791097"/>
+                    <rotate axis="1,0,0" angle="174.54228330821485"/>
+                    <rotate axis="0,1,0" angle="267.61909515960394"/>
+                    <translate x="178.3694636879872" y="15.896388151280036" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.058163886854179656"/>
+                    <rotate axis="1,0,0" angle="189.6386010167675"/>
+                    <rotate axis="0,1,0" angle="273.0613349457015"/>
+                    <translate x="-141.1895834137941" y="16.10456042701802" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05556154755876301"/>
+                    <rotate axis="1,0,0" angle="185.44821226633314"/>
+                    <rotate axis="0,1,0" angle="168.02301376794588"/>
+                    <translate x="315.0994481263371" y="17.586211102382187" z="708.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.056339726539964136"/>
+                    <rotate axis="1,0,0" angle="180.85129933924782"/>
+                    <rotate axis="0,1,0" angle="39.38877828900949"/>
+                    <translate x="185.8592126018114" y="16.98621682180201" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.0445078958703196"/>
+                    <rotate axis="1,0,0" angle="170.06515538830502"/>
+                    <rotate axis="0,1,0" angle="194.96927647803278"/>
+                    <translate x="-95.33558188507615" y="17.105342639891248" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04658518067384206"/>
+                    <rotate axis="1,0,0" angle="182.41479284575018"/>
+                    <rotate axis="0,1,0" angle="333.74030816328064"/>
+                    <translate x="-197.70327136337312" y="18.059713470282894" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.0499261879659244"/>
+                    <rotate axis="1,0,0" angle="173.43974310103366"/>
+                    <rotate axis="0,1,0" angle="347.7207594816393"/>
+                    <translate x="289.5274613288013" y="16.52594867418815" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04792397846645171"/>
+                    <rotate axis="1,0,0" angle="177.14080892348744"/>
+                    <rotate axis="0,1,0" angle="239.9195025507435"/>
+                    <translate x="130.93552344081252" y="17.258250671888298" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04505321843753036"/>
+                    <rotate axis="1,0,0" angle="179.05777742785597"/>
+                    <rotate axis="0,1,0" angle="300.8580848655048"/>
+                    <translate x="-326.5384261027656" y="16.29007328641401" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.048937930609195227"/>
+                    <rotate axis="1,0,0" angle="186.7028397025611"/>
+                    <rotate axis="0,1,0" angle="358.4310326122434"/>
+                    <translate x="213.5173185501455" y="17.48140840994266" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.03974857173961694"/>
+                    <rotate axis="1,0,0" angle="189.54382948555056"/>
+                    <rotate axis="0,1,0" angle="50.87973582133273"/>
+                    <translate x="71.35789626734044" y="18.26092923736257" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04267035299977612"/>
+                    <rotate axis="1,0,0" angle="173.09673634585423"/>
+                    <rotate axis="0,1,0" angle="36.33147605583383"/>
+                    <translate x="-251.53144349794655" y="17.655047748433915" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.058522539726393236"/>
+                    <rotate axis="1,0,0" angle="186.83920418604308"/>
+                    <rotate axis="0,1,0" angle="157.6288598440447"/>
+                    <translate x="44.00577757795918" y="17.750843771355548" z="735.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03547224843818821"/>
+                    <rotate axis="1,0,0" angle="185.7919865659995"/>
+                    <rotate axis="0,1,0" angle="305.3286653781078"/>
+                    <translate x="217.0398137399713" y="16.38907979519815" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05268946507081924"/>
+                    <rotate axis="1,0,0" angle="175.7045119942091"/>
+                    <rotate axis="0,1,0" angle="173.9261198511985"/>
+                    <translate x="-117.03926873764354" y="16.973001732968534" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.045554030106746225"/>
+                    <rotate axis="1,0,0" angle="183.43868050199023"/>
+                    <rotate axis="0,1,0" angle="259.1292297777248"/>
+                    <translate x="-200.29586078884918" y="18.320247517695655" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.040478226343539044"/>
+                    <rotate axis="1,0,0" angle="175.15263936399325"/>
+                    <rotate axis="0,1,0" angle="4.422703370835088"/>
+                    <translate x="-34.067562462055776" y="17.309106557434106" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05377048927136005"/>
+                    <rotate axis="1,0,0" angle="187.2868366734151"/>
+                    <rotate axis="0,1,0" angle="47.404326364862534"/>
+                    <translate x="193.27912932572048" y="17.247465578172807" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04179257154155234"/>
+                    <rotate axis="1,0,0" angle="178.37689020355393"/>
+                    <rotate axis="0,1,0" angle="127.16182764646905"/>
+                    <translate x="225.63998029922874" y="18.534657581973246" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05966492268524749"/>
+                    <rotate axis="1,0,0" angle="176.24319854523017"/>
+                    <rotate axis="0,1,0" angle="305.47077456026335"/>
+                    <translate x="-175.76300271093635" y="17.301141200353314" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.054035491787117876"/>
+                    <rotate axis="1,0,0" angle="173.08947183895523"/>
+                    <rotate axis="0,1,0" angle="298.2381437162612"/>
+                    <translate x="174.10901524690286" y="18.15975802015185" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04496768865554377"/>
+                    <rotate axis="1,0,0" angle="179.6648398969644"/>
+                    <rotate axis="0,1,0" angle="256.3076892162528"/>
+                    <translate x="24.37687373357761" y="17.878035877011467" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.037783799141800654"/>
+                    <rotate axis="1,0,0" angle="170.77754845501644"/>
+                    <rotate axis="0,1,0" angle="142.0585372787647"/>
+                    <translate x="252.1684664633621" y="18.04513036742069" z="762.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03966085342603687"/>
+                    <rotate axis="1,0,0" angle="184.24325502550073"/>
+                    <rotate axis="0,1,0" angle="83.3444097238676"/>
+                    <translate x="270.06574952034765" y="18.3796821274655" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.046444237847596395"/>
+                    <rotate axis="1,0,0" angle="181.2504139803067"/>
+                    <rotate axis="0,1,0" angle="126.15657658015631"/>
+                    <translate x="-348.71683021676733" y="17.538559409374905" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04677939153597288"/>
+                    <rotate axis="1,0,0" angle="180.31697651850772"/>
+                    <rotate axis="0,1,0" angle="323.6328840398765"/>
+                    <translate x="319.47046216825464" y="16.81994118206058" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05431710649079414"/>
+                    <rotate axis="1,0,0" angle="174.71008619683985"/>
+                    <rotate axis="0,1,0" angle="11.19358104979099"/>
+                    <translate x="305.93265650950303" y="17.503691563292698" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03575234560060146"/>
+                    <rotate axis="1,0,0" angle="189.18732205515354"/>
+                    <rotate axis="0,1,0" angle="116.58638775990121"/>
+                    <translate x="290.93155162990246" y="18.634952006872716" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04953004139767066"/>
+                    <rotate axis="1,0,0" angle="174.50380079638285"/>
+                    <rotate axis="0,1,0" angle="355.0388733719812"/>
+                    <translate x="-162.3644817239517" y="17.38782774226346" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.038272292968165596"/>
+                    <rotate axis="1,0,0" angle="172.22238370332155"/>
+                    <rotate axis="0,1,0" angle="262.45658297903816"/>
+                    <translate x="-307.4455034593947" y="17.077258096004392" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.037407066562082425"/>
+                    <rotate axis="1,0,0" angle="184.43688938750174"/>
+                    <rotate axis="0,1,0" angle="163.24605962375048"/>
+                    <translate x="-35.4124241302128" y="17.32091539971835" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04663608839972752"/>
+                    <rotate axis="1,0,0" angle="186.48709141636917"/>
+                    <rotate axis="0,1,0" angle="267.03284494970484"/>
+                    <translate x="-163.3681295305716" y="17.327183843512287" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.036877759954950844"/>
+                    <rotate axis="1,0,0" angle="171.5444708022485"/>
+                    <rotate axis="0,1,0" angle="191.00997167738305"/>
+                    <translate x="-328.5415270581942" y="18.994711743609805" z="790.0"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04386566452834753"/>
+                    <rotate axis="1,0,0" angle="171.21678654547284"/>
+                    <rotate axis="0,1,0" angle="126.61007795458445"/>
+                    <translate x="-229.35017190714768" y="18.223293556940448" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.047668469074014744"/>
+                    <rotate axis="1,0,0" angle="179.83717373321326"/>
+                    <rotate axis="0,1,0" angle="224.77466164161197"/>
+                    <translate x="-198.88855638902535" y="18.089529141870358" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.056474479126990426"/>
+                    <rotate axis="1,0,0" angle="180.57251416824502"/>
+                    <rotate axis="0,1,0" angle="217.64092590955724"/>
+                    <translate x="-362.2852498476913" y="18.582970933067813" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03606608480150197"/>
+                    <rotate axis="1,0,0" angle="174.02931230643523"/>
+                    <rotate axis="0,1,0" angle="137.3174315152804"/>
+                    <translate x="343.809072606493" y="16.75957302726645" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03825098025135433"/>
+                    <rotate axis="1,0,0" angle="178.0823861316352"/>
+                    <rotate axis="0,1,0" angle="109.19177236047663"/>
+                    <translate x="28.467305364217736" y="18.227411189784313" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05570845608748173"/>
+                    <rotate axis="1,0,0" angle="170.41373982653406"/>
+                    <rotate axis="0,1,0" angle="104.65140720539691"/>
+                    <translate x="-169.79558035847194" y="18.696849706250273" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.035826984590890516"/>
+                    <rotate axis="1,0,0" angle="170.69767149950988"/>
+                    <rotate axis="0,1,0" angle="97.59686337827468"/>
+                    <translate x="-23.287191786137726" y="17.325419911987325" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.03643383944687541"/>
+                    <rotate axis="1,0,0" angle="186.0594404821343"/>
+                    <rotate axis="0,1,0" angle="98.3534382594415"/>
+                    <translate x="-242.44708276479523" y="17.320912563768424" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05285042337954751"/>
+                    <rotate axis="1,0,0" angle="186.6948379668085"/>
+                    <rotate axis="0,1,0" angle="295.57934885660075"/>
+                    <translate x="136.22865624585484" y="17.39484380102722" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.051229902466700596"/>
+                    <rotate axis="1,0,0" angle="184.6948077843707"/>
+                    <rotate axis="0,1,0" angle="192.9236805475852"/>
+                    <translate x="-119.17218506681169" y="17.352627130182384" z="817.1428571428571"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.044606708835218375"/>
+                    <rotate axis="1,0,0" angle="185.75882309705693"/>
+                    <rotate axis="0,1,0" angle="329.51089386372496"/>
+                    <translate x="-84.24918521493242" y="18.14052763532255" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05408080511345466"/>
+                    <rotate axis="1,0,0" angle="184.82584277982522"/>
+                    <rotate axis="0,1,0" angle="104.08560012905168"/>
+                    <translate x="-120.56446559198162" y="17.841186569395635" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.052325262926171984"/>
+                    <rotate axis="1,0,0" angle="183.30102454317108"/>
+                    <rotate axis="0,1,0" angle="136.61616321233944"/>
+                    <translate x="-133.62311835156714" y="17.496546752867367" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05231666646103526"/>
+                    <rotate axis="1,0,0" angle="186.17877664458928"/>
+                    <rotate axis="0,1,0" angle="300.3159660702786"/>
+                    <translate x="83.61809456345509" y="17.28342670866575" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.059873961704913214"/>
+                    <rotate axis="1,0,0" angle="172.56391146441678"/>
+                    <rotate axis="0,1,0" angle="79.45103182837988"/>
+                    <translate x="-148.14246143449301" y="18.049943152224408" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04651775695829163"/>
+                    <rotate axis="1,0,0" angle="183.44178127436413"/>
+                    <rotate axis="0,1,0" angle="329.24214820314046"/>
+                    <translate x="-239.2791254256572" y="18.872993720286658" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05861925921618901"/>
+                    <rotate axis="1,0,0" angle="185.22607461778648"/>
+                    <rotate axis="0,1,0" angle="108.32801983698782"/>
+                    <translate x="-157.68944927817586" y="19.443308695723616" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05706082573395456"/>
+                    <rotate axis="1,0,0" angle="178.298384434714"/>
+                    <rotate axis="0,1,0" angle="157.38933305120332"/>
+                    <translate x="359.93140388674277" y="18.297399656268496" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04956581000839462"/>
+                    <rotate axis="1,0,0" angle="181.16841664857031"/>
+                    <rotate axis="0,1,0" angle="242.16262399538036"/>
+                    <translate x="-362.6125074928582" y="17.92223095132853" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.059790012787961935"/>
+                    <rotate axis="1,0,0" angle="177.87850955874165"/>
+                    <rotate axis="0,1,0" angle="109.52368683709533"/>
+                    <translate x="-50.66284102865757" y="17.99986967178884" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04906986174442609"/>
+                    <rotate axis="1,0,0" angle="187.11275615244355"/>
+                    <rotate axis="0,1,0" angle="259.3861654269362"/>
+                    <translate x="-71.91642967733748" y="17.768522786483697" z="844.2857142857142"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04676867409346307"/>
+                    <rotate axis="1,0,0" angle="188.9769797030865"/>
+                    <rotate axis="0,1,0" angle="299.3437521257277"/>
+                    <translate x="100.95805412702907" y="19.06395889959619" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05445433192168136"/>
+                    <rotate axis="1,0,0" angle="185.51887669667235"/>
+                    <rotate axis="0,1,0" angle="203.11054905332233"/>
+                    <translate x="331.19054393675145" y="18.238784498810325" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.039168741615325374"/>
+                    <rotate axis="1,0,0" angle="177.142504195686"/>
+                    <rotate axis="0,1,0" angle="255.9235511707747"/>
+                    <translate x="224.82410504551257" y="17.53541158518344" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04608963203069058"/>
+                    <rotate axis="1,0,0" angle="187.4439652482461"/>
+                    <rotate axis="0,1,0" angle="114.40922186996903"/>
+                    <translate x="-138.78275240863573" y="19.532484477381914" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.049287167977729404"/>
+                    <rotate axis="1,0,0" angle="186.92709779568324"/>
+                    <rotate axis="0,1,0" angle="313.43514138661874"/>
+                    <translate x="38.47786555387171" y="18.742069283235708" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03678453917240544"/>
+                    <rotate axis="1,0,0" angle="172.72146248397814"/>
+                    <rotate axis="0,1,0" angle="68.07105928561757"/>
+                    <translate x="-250.21498017100578" y="17.78386259386467" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05568722529455213"/>
+                    <rotate axis="1,0,0" angle="172.0547590637207"/>
+                    <rotate axis="0,1,0" angle="171.69680829361948"/>
+                    <translate x="126.83334550180024" y="17.624938552048068" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.05982041589250392"/>
+                    <rotate axis="1,0,0" angle="185.02157745852702"/>
+                    <rotate axis="0,1,0" angle="211.98679777655366"/>
+                    <translate x="-359.6487781982382" y="19.119709203471192" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05551183484042139"/>
+                    <rotate axis="1,0,0" angle="174.55364466574494"/>
+                    <rotate axis="0,1,0" angle="232.24818175720048"/>
+                    <translate x="-367.7818860461368" y="19.59499588536022" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05940372528815409"/>
+                    <rotate axis="1,0,0" angle="178.88124886680998"/>
+                    <rotate axis="0,1,0" angle="61.45615916248852"/>
+                    <translate x="265.68790728019525" y="19.34439338880574" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05915040801378939"/>
+                    <rotate axis="1,0,0" angle="174.43061411517098"/>
+                    <rotate axis="0,1,0" angle="210.3282269715704"/>
+                    <translate x="-298.4557652383655" y="19.283410283862786" z="871.4285714285714"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05007488499254568"/>
+                    <rotate axis="1,0,0" angle="189.8974479033569"/>
+                    <rotate axis="0,1,0" angle="183.74278386082113"/>
+                    <translate x="375.0932510174543" y="19.686915865795186" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03710086596083536"/>
+                    <rotate axis="1,0,0" angle="178.97521971140955"/>
+                    <rotate axis="0,1,0" angle="78.8712768002826"/>
+                    <translate x="-351.53591538822076" y="18.93967960350428" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03880644018394898"/>
+                    <rotate axis="1,0,0" angle="173.98950798875435"/>
+                    <rotate axis="0,1,0" angle="285.2262608859095"/>
+                    <translate x="262.113574377971" y="18.920576003048073" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05660290253953043"/>
+                    <rotate axis="1,0,0" angle="171.4707983384643"/>
+                    <rotate axis="0,1,0" angle="89.77019279969913"/>
+                    <translate x="-93.24115621167465" y="19.6220746805473" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.036704272273948846"/>
+                    <rotate axis="1,0,0" angle="178.7238264747739"/>
+                    <rotate axis="0,1,0" angle="312.0866911608278"/>
+                    <translate x="-308.39716173935045" y="18.908874017297048" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05262147113509247"/>
+                    <rotate axis="1,0,0" angle="172.59791522503932"/>
+                    <rotate axis="0,1,0" angle="17.10341394902715"/>
+                    <translate x="331.44892761007935" y="17.90768488974345" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05501323702864232"/>
+                    <rotate axis="1,0,0" angle="180.391864137212"/>
+                    <rotate axis="0,1,0" angle="56.22983964214771"/>
+                    <translate x="120.13110547448895" y="17.646643221715994" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04617702420805266"/>
+                    <rotate axis="1,0,0" angle="180.39458721926187"/>
+                    <rotate axis="0,1,0" angle="98.41942648469836"/>
+                    <translate x="210.99362534527125" y="19.288319715113765" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.04685099068916879"/>
+                    <rotate axis="1,0,0" angle="178.48963771308152"/>
+                    <rotate axis="0,1,0" angle="159.10832424389807"/>
+                    <translate x="-266.0203372255918" y="19.45328532575433" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.03892039070760864"/>
+                    <rotate axis="1,0,0" angle="174.85391079751437"/>
+                    <rotate axis="0,1,0" angle="337.9735721450472"/>
+                    <translate x="122.68237073464621" y="17.752862981844643" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.0594832733126527"/>
+                    <rotate axis="1,0,0" angle="176.75700911038734"/>
+                    <rotate axis="0,1,0" angle="335.5096295826427"/>
+                    <translate x="-69.27095955857209" y="18.42797447713106" z="898.5714285714286"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.04974367394980147"/>
+                    <rotate axis="1,0,0" angle="176.69059762131783"/>
+                    <rotate axis="0,1,0" angle="169.20273496749658"/>
+                    <translate x="-262.0875433961902" y="18.15002711665811" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.037990294629924835"/>
+                    <rotate axis="1,0,0" angle="171.52255955086918"/>
+                    <rotate axis="0,1,0" angle="39.330749307287604"/>
+                    <translate x="54.71199817953243" y="17.85009753168714" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.053013481414127206"/>
+                    <rotate axis="1,0,0" angle="186.19271256065127"/>
+                    <rotate axis="0,1,0" angle="106.5954666799506"/>
+                    <translate x="-396.95826032806326" y="19.241469308912706" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05005377897295783"/>
+                    <rotate axis="1,0,0" angle="185.30841567481517"/>
+                    <rotate axis="0,1,0" angle="318.33757802983325"/>
+                    <translate x="132.74657816444335" y="19.81648209047055" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.047384118430421306"/>
+                    <rotate axis="1,0,0" angle="172.78406611774645"/>
+                    <rotate axis="0,1,0" angle="71.89240219432892"/>
+                    <translate x="-72.86956608615861" y="20.104998095890757" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.04018921069087608"/>
+                    <rotate axis="1,0,0" angle="184.61438136202648"/>
+                    <rotate axis="0,1,0" angle="261.02459784711505"/>
+                    <translate x="-214.7624000927321" y="19.880877280749544" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.05684410339010958"/>
+                    <rotate axis="1,0,0" angle="175.47330060021838"/>
+                    <rotate axis="0,1,0" angle="103.65258068909567"/>
+                    <translate x="-258.3340712392594" y="19.57358627208501" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.035027932392224986"/>
+                    <rotate axis="1,0,0" angle="174.9969919208948"/>
+                    <rotate axis="0,1,0" angle="344.6943606429494"/>
+                    <translate x="-163.9690881975272" y="17.784887020342772" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05925509979510222"/>
+                    <rotate axis="1,0,0" angle="184.7910606424345"/>
+                    <rotate axis="0,1,0" angle="97.70702375196285"/>
+                    <translate x="139.93090330936525" y="18.73695517956687" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.035218374922285085"/>
+                    <rotate axis="1,0,0" angle="170.96834422863122"/>
+                    <rotate axis="0,1,0" angle="180.56150488486372"/>
+                    <translate x="7.854587001655034" y="20.024422022012452" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.053368208983144344"/>
+                    <rotate axis="1,0,0" angle="171.02751580684617"/>
+                    <rotate axis="0,1,0" angle="79.61216732475658"/>
+                    <translate x="-96.1644538124616" y="17.751545767460385" z="925.7142857142857"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.04324938236146715"/>
+                    <rotate axis="1,0,0" angle="185.36216565804247"/>
+                    <rotate axis="0,1,0" angle="140.17706786435744"/>
+                    <translate x="1.072129499094899" y="18.478727489694272" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="-403"/>
+                    <scale value="0.040522927870334784"/>
+                    <rotate axis="1,0,0" angle="176.64582364120247"/>
+                    <rotate axis="0,1,0" angle="17.86623376385677"/>
+                    <translate x="-91.80485568736344" y="18.343347405266883" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.043167402292511745"/>
+                    <rotate axis="1,0,0" angle="182.50120042620162"/>
+                    <rotate axis="0,1,0" angle="275.67310095026755"/>
+                    <translate x="-147.92698699837808" y="19.246675068583905" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.03547519965346659"/>
+                    <rotate axis="1,0,0" angle="189.8369223934443"/>
+                    <rotate axis="0,1,0" angle="182.14091100541373"/>
+                    <translate x="213.70766879071846" y="18.779824349972976" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.045307383228118434"/>
+                    <rotate axis="1,0,0" angle="179.7897197523115"/>
+                    <rotate axis="0,1,0" angle="308.4656273645269"/>
+                    <translate x="34.19456314137119" y="18.346942681983016" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05869924662541198"/>
+                    <rotate axis="1,0,0" angle="178.87869499622786"/>
+                    <rotate axis="0,1,0" angle="208.86169315615533"/>
+                    <translate x="353.69637480507504" y="18.596676180571475" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.035727382420642675"/>
+                    <rotate axis="1,0,0" angle="183.2390216591944"/>
+                    <rotate axis="0,1,0" angle="327.3217477992089"/>
+                    <translate x="182.763596611239" y="18.925898774862254" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.039192106359127836"/>
+                    <rotate axis="1,0,0" angle="172.91597421134196"/>
+                    <rotate axis="0,1,0" angle="241.4289176655687"/>
+                    <translate x="-411.03253800280544" y="19.708034584499774" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="405" y="94" z="403"/>
+                    <scale value="0.050342675394247055"/>
+                    <rotate axis="1,0,0" angle="182.64006185371173"/>
+                    <rotate axis="0,1,0" angle="212.2897987327918"/>
+                    <translate x="-35.643391511847824" y="19.413122371962015" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05616033867922341"/>
+                    <rotate axis="1,0,0" angle="176.13696746669663"/>
+                    <rotate axis="0,1,0" angle="182.01711965969488"/>
+                    <translate x="-296.15312774106866" y="18.22954804558186" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="403"/>
+                    <scale value="0.05872295618986785"/>
+                    <rotate axis="1,0,0" angle="170.69764337490562"/>
+                    <rotate axis="0,1,0" angle="184.92585295352342"/>
+                    <translate x="-257.1604624192381" y="20.371288867585612" z="952.8571428571429"/>
+                </transform>
+            </instance>
+<instance>
+                <ref id="cloudmesh"/>
+                <ref id="cloudvolume"/>
+                <ref id="cloudshader"/>
+                <transform>
+                    <scale x="-405" y="94" z="-403"/>
+                    <scale value="0.05743848219469849"/>
+                    <rotate axis="1,0,0" angle="170.39373088990328"/>
+                    <rotate axis="0,1,0" angle="266.753295752717"/>
+                    <translate x="349.25490128308536" y="20.454788447498377" z="952.8571428571429"/>
+                </transform>
+            </instance>
+
+
+        
+    </scene>
+    <sampler type="independent" count="4"/>
+    <image id="noisyb"/>
+</integrator>
+<!-- <integrator type="normals">
+    <ref id="scene"/>
+    <image id="normals"/>
+    <sampler type="independent" count="32"/>
+</integrator>
+
+<integrator type="albedo">
+    <ref id="scene"/>
+    <image id="albedo"/>
+    <sampler type="independent" count="32"/>
+</integrator>
+
+<postprocess type="denoising">
+    <ref name="input" id="noisy"/>
+    <ref name="normals" id="normals"/>
+    <ref name="albedo" id="albedo"/>
+    <image id="denoised"/>
+</postprocess> -->
+<postprocess type="bloom" kernelSize="17" iterations="6" threshold="10.3" softThreshold="0.3" amount="0.004">
+    <ref name="input" id="noisyb"/>
+    <image id="bloomed"/>
+</postprocess>

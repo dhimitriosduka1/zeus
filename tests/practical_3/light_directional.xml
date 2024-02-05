@@ -1,0 +1,48 @@
+<test type="image" id="light_directional">
+    <integrator type="direct">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="400"/>
+                <integer name="height" value="300"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="25"/>
+
+                <transform>
+                    <lookat origin="0,-1,-4" target="0,0.54,0" up="0,1,0"/>
+                </transform>
+            </camera>
+
+            <light type="envmap">
+                <texture type="constant" value="0.015,0.09,0.3"/>
+            </light>
+            <light type="directional" direction="-0.8,-1,-1" intensity="2.1,1.88,1.65"/>
+
+            <bsdf type="diffuse" id="wall material">
+                <texture name="albedo" type="constant" value="0.9"/>
+            </bsdf>
+
+            <instance id="floor">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <scale value="100"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <bsdf type="diffuse">
+                    <texture name="albedo" type="constant" value="0.9"/>
+                </bsdf>
+                <transform>
+                    <scale value="0.5"/>
+                    <translate y="0.5" z="-0.1"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="128"/>
+    </integrator>
+</test>

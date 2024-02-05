@@ -1,0 +1,77 @@
+<scene id="scene">
+  <camera type="thin_lens">
+    <integer name="width" value="1920"/>
+    <integer name="height" value="1080"/>
+    <float name="fov" value="39.6"/>
+    <string name="fovAxis" value="x"/>
+
+    <float name="focalDistance" value="7.5"/>
+    <float name="aperture" value="0.1"/>  
+    <transform>
+      <matrix value="0.686,0,-0.728,7.36,  0.728,-2.75e-08,0.686,-6.93,  0,-1,-2.75e-08,1,  0,0,0,1"/>
+    </transform>
+  </camera>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="constant" value="0.8"/>
+      <texture name="roughness" type="constant" value="0.5"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <shape type="mesh" filename="meshes/Plane.ply"/>
+    <transform>
+      <matrix value="12,0,0,0,  0,12,0,0,  0,0,1,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="textures/food_avocado_01_diff_1k.jpg"/>
+      <texture name="roughness" type="image" filename="textures/food_avocado_01_rough_1k.jpg" linear="true"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="normal" type="image" filename="textures/food_avocado_01_nor_gl.png.002.exr" linear="true"/>
+    <shape type="mesh" filename="meshes/avocado_50k_uv.001.ply"/>
+    <transform>
+      <matrix value="10,0,0,1.97,  0,10,0,-2.17,  0,0,10,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="textures/food_avocado_01_diff_1k.jpg"/>
+      <texture name="roughness" type="image" filename="textures/food_avocado_01_rough_1k.jpg" linear="true"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="normal" type="image" filename="textures/food_avocado_01_nor_gl.png.001.exr" linear="true"/>
+    <shape type="mesh" filename="meshes/avocado_50k_uv.002.ply"/>
+    <transform>
+      <matrix value="10,0,0,-0.39,  0,10,0,-2.17,  0,0,10,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <instance>
+    <bsdf type="principled">
+      <texture name="baseColor" type="image" filename="textures/food_avocado_01_diff_1k.jpg"/>
+      <texture name="roughness" type="image" filename="textures/food_avocado_01_rough_1k.jpg" linear="true"/>
+      <texture name="metallic" type="constant" value="0"/>
+      <texture name="specular" type="constant" value="0.5"/>
+    </bsdf>
+    <texture name="normal" type="image" filename="textures/food_avocado_01_nor_gl.png.003.exr" linear="true"/>
+    <shape type="mesh" filename="meshes/avocado_50k_uv.003.ply"/>
+    <transform>
+      <matrix value="10,0,0,3.76,  0,10,0,-2.17,  0,0,10,0,  0,0,0,1"/>
+    </transform>
+  </instance>
+  <light type="point" position="4.08,1.01,5.9" power="2.53e+03,2.53e+03,2.53e+03" />
+  <light type="envmap">
+    <texture type="constant" value="0.0509,0.0509,0.0509"/>
+    <transform>
+      <matrix value="1,0,0,0,  0,0,1,0,  0,-1,0,0,  0,0,0,1"/>
+    </transform>
+  </light>
+</scene>
+<integrator type="pathtracer" depth="3" nee="true" mis="true">
+  <ref id="scene"/>
+  <image id="noisy"/>
+  <sampler type="independent" count="256"/>
+</integrator>

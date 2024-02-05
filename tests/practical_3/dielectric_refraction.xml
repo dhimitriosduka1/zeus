@@ -1,0 +1,65 @@
+<test type="image" id="dielectric_refraction">
+    <integrator type="direct">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="540"/>
+                <integer name="height" value="320"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="40"/>
+
+                <transform>
+                    <translate x="0.2" z="-6"/>
+                    <rotate axis="0,1,0" angle="-15"/>
+                </transform>
+            </camera>
+
+            <instance>
+                <shape type="sphere"/>
+                <emission type="lambertian">
+                    <texture name="emission" type="constant" value="0.2,0.7,3"/>
+                </emission>
+                <transform>
+                    <scale value="2"/>
+                    <translate x="-1" z="5"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="sphere"/>
+                <emission type="lambertian">
+                    <texture name="emission" type="constant" value="0.1"/>
+                </emission>
+                <transform>
+                    <scale value="20"/>
+                    <translate x="-10" z="25"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="rectangle"/>
+                <bsdf type="dielectric">
+                    <texture name="ior" type="constant" value="1.4"/>
+                    <texture name="reflectance" type="constant" value="0"/>
+                    <texture name="transmittance" type="constant" value="0.7,0.8,1"/>
+                </bsdf>
+                <transform>
+                    <translate x="1.1"/>
+                </transform>
+            </instance>
+            <instance>
+                <shape type="rectangle"/>
+                <bsdf type="dielectric">
+                    <texture name="ior" type="constant" value="1.4"/>
+                    <texture name="reflectance" type="constant" value="0"/>
+                    <texture name="transmittance" type="constant" value="0.7,0.8,1"/>
+                </bsdf>
+                <transform>
+                    <translate x="1.1"/>
+                    <rotate axis="0,1,0" angle="180"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="64"/>
+    </integrator>
+</test>

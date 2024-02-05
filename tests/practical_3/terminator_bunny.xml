@@ -1,0 +1,120 @@
+<test type="image" id="terminator_bunny">
+    <integrator type="pathtracer" depth="6">
+        <scene id="scene">
+            <camera type="perspective" id="camera">
+                <integer name="width" value="400"/>
+                <integer name="height" value="480"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="40"/>
+
+                <transform>
+                    <translate y="0.215" z="-4"/>
+                </transform>
+            </camera>
+
+            <bsdf type="principled" id="wall material">
+                <texture name="baseColor" type="constant" value="1"/>
+                <texture name="specular" type="constant" value="1"/>
+                <texture name="metallic" type="constant" value="1"/>
+                <texture name="roughness" type="constant" value="0.5"/>
+            </bsdf>
+
+            <instance id="back">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <scale z="-1"/>
+                    <translate z="1"/>
+                </transform>
+            </instance>
+
+            <instance id="floor">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate y="1"/>
+                </transform>
+            </instance>
+
+            <instance id="ceiling">
+                <shape type="rectangle"/>
+                <ref id="wall material"/>
+                <transform>
+                    <rotate axis="1,0,0" angle="-90"/>
+                    <translate y="-1"/>
+                </transform>
+            </instance>
+
+            <instance id="left wall">
+                <shape type="rectangle"/>
+                <bsdf type="principled">
+                    <texture name="baseColor" type="constant" value="0.9,0,0"/>
+                    <texture name="specular" type="constant" value="0.2"/>
+                    <texture name="metallic" type="constant" value="0"/>
+                    <texture name="roughness" type="constant" value="0.2"/>
+                </bsdf>
+                <transform>
+                    <rotate axis="0,1,0" angle="90"/>
+                    <translate x="-1"/>
+                </transform>
+            </instance>
+
+            <instance id="right wall">
+                <shape type="rectangle"/>
+                <bsdf type="principled">
+                    <texture name="baseColor" type="constant" value="0,0.9,0"/>
+                    <texture name="specular" type="constant" value="0.2"/>
+                    <texture name="metallic" type="constant" value="0"/>
+                    <texture name="roughness" type="constant" value="0.2"/>
+                </bsdf>
+                <transform>
+                    <rotate axis="0,1,0" angle="-90"/>
+                    <translate x="1"/>
+                </transform>
+            </instance>
+
+            <instance id="lamp">
+                <shape type="rectangle"/>
+                <emission type="lambertian">
+                    <texture name="emission" type="constant" value="2"/>
+                </emission>
+                <transform>
+                    <scale value="0.9"/>
+                    <rotate axis="1,0,0" angle="-90"/>
+                    <translate y="-0.98"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/bunny.ply"/>
+                <bsdf type="principled">
+                    <texture name="baseColor" type="constant" value="1"/>
+                    <texture name="specular" type="constant" value="1"/>
+                    <texture name="metallic" type="constant" value="1"/>
+                    <texture name="roughness" type="constant" value="0.1"/>
+                </bsdf>
+                <transform>
+                    <scale value="0.8"/>
+                    <rotate axis="1,0,0" angle="90"/>
+                    <translate x="0.18" y="1.03"/>
+                </transform>
+            </instance>
+
+            <instance>
+                <shape type="rectangle"/>
+                <emission type="lambertian">
+                    <texture name="emission" type="image" filename="../textures/bunninator.png" exposure="1"/>
+                </emission>
+                <transform>
+                    <scale y="0.25"/>
+                    <rotate axis="0,1,0" angle="180"/>
+                    <rotate axis="0,0,1" angle="180"/>
+                    <translate x="0.01" y="1.19" z="-1.2"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="256"/>
+    </integrator>
+</test>

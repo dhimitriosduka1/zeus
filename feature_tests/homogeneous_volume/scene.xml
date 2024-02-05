@@ -1,0 +1,41 @@
+<integrator type="pathtracer" depth="4">
+    <scene id="scene">
+        <camera type="perspective" id="camera">
+            <integer name="width" value="1024"/>
+            <integer name="height" value="1024"/>
+            <string name="fovAxis" value="x"/>
+            <float name="fov" value="50"/>
+            <transform>
+                <rotate axis="1,0,0" angle="0"/>
+                <translate z="-5" y="0." x="0."/>
+            </transform>
+        </camera>
+
+        <light type="spot" position="2.5,-2.5,0" direction="-1,1,0" intensity="3" angle="32" falloff="8"/>
+
+        <instance>
+            <shape type="sphere"/>
+                <bsdf type="principled">
+                <texture name="baseColor" type="constant" value="0.95"/>
+                <texture name="specular" type="constant" value="0.5"/>
+                <texture name="metallic" type="constant" value="0"/>
+                <texture name="roughness" type="constant" value="0.75"/>
+            </bsdf>
+            <transform>
+                <scale value="0.45"/>
+            </transform>
+        </instance>
+
+        <instance>
+            <shape type="mesh" filename="./meshes/cube.ply" smooth="false"/>
+            <volume type="constant" value="0.015" />
+            <bsdf type="volume" absorption="3" phase="0.0"/>
+            <transform>
+                <scale x="1" y="1" z="1"/>
+                <scale value="4"/>
+            </transform>
+        </instance>
+    </scene>
+    <sampler type="independent" count="1024"/>
+    <image id="homogeneous"/>
+</integrator>

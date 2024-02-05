@@ -1,0 +1,26 @@
+<test type="image" id="mesh_bunny_flat">
+    <integrator type="normals">
+        <scene>
+            <camera type="perspective" id="camera">
+                <integer name="width" value="512"/>
+                <integer name="height" value="512"/>
+
+                <string name="fovAxis" value="x"/>
+                <float name="fov" value="27"/>
+
+                <transform>
+                    <lookat origin="0,-5,1.5" target="-0.2,0,0.8" up="0,0,-1" />
+                </transform>
+            </camera>
+
+            <instance>
+                <shape type="mesh" filename="../meshes/bunny.ply"/>
+
+                <transform>
+                    <scale z="0.1"/>
+                </transform>
+            </instance>
+        </scene>
+        <sampler type="independent" count="16"/>
+    </integrator>
+</test>
